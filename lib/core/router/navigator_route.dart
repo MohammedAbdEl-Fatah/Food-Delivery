@@ -19,62 +19,68 @@ class NavigatorRoute {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case ContentsRouter.auth:
-        return MaterialPageRoute(builder: (_) => Auth(), settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => const Auth(),
+          settings: settings,
+        );
       case ContentsRouter.onBoarding:
         return MaterialPageRoute(
-          builder: (_) => OnBoardingPage(),
+          builder: (_) => const OnBoardingPage(),
           settings: settings,
         );
       case ContentsRouter.home:
         return MaterialPageRoute(
-          builder: (_) => HomePage(),
+          builder: (_) => const HomePage(),
           settings: settings,
         );
       case ContentsRouter.main:
         return MaterialPageRoute(
-          builder: (_) => MainScreen(),
+          builder: (_) => const MainScreen(),
           settings: settings,
         );
       case ContentsRouter.login:
         return MaterialPageRoute(
-          builder: (_) => LoginScreen(),
+          builder: (_) => const LoginScreen(),
           settings: settings,
         );
       case ContentsRouter.register:
         return MaterialPageRoute(
-          builder: (_) => RegisterPage(),
+          builder: (_) => const RegisterPage(),
           settings: settings,
         );
       case ContentsRouter.forgetPassword:
         return MaterialPageRoute(
-          builder: (_) => ForgetPassword(),
+          builder: (_) => const ForgetPassword(),
           settings: settings,
         );
       case ContentsRouter.otpView:
-        return MaterialPageRoute(builder: (_) => OtpView(), settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => const OtpView(),
+          settings: settings,
+        );
       case ContentsRouter.resetPassword:
         return MaterialPageRoute(
-          builder: (_) => ResetPassword(),
+          builder: (_) => const ResetPassword(),
           settings: settings,
         );
       case ContentsRouter.editProfilePage:
         return MaterialPageRoute(
-          builder: (_) => EditProfilePage(),
+          builder: (_) => const EditProfilePage(),
           settings: settings,
         );
       case ContentsRouter.detailsCard:
         return MaterialPageRoute(
-          builder: (_) => DetailsCard(),
+          builder: (_) => const DetailsCard(),
           settings: settings,
         );
       case ContentsRouter.allProduct:
         return MaterialPageRoute(
-          builder: (_) => AllProduct(),
+          builder: (_) => const AllProduct(),
           settings: settings,
         );
       case ContentsRouter.notificationScreen:
         return MaterialPageRoute(
-          builder: (_) => NotificationScreen(),
+          builder: (_) => const NotificationScreen(),
           settings: settings,
         );
     }
