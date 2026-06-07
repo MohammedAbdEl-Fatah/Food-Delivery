@@ -9,7 +9,7 @@ import '../../features/auth/register/presentation/view/register_screen.dart';
 import '../../features/botton_nav_bar/presentation/views/main_page.dart';
 import '../../features/home/presentation/view/details_card.dart';
 import '../../features/home/presentation/view/home_page.dart';
-import '../../features/home/presentation/view/notification_screen.dart';
+import '../../features/notification/presentation/view/notification_screen.dart';
 import '../../features/onboarding/presentation/views/on_boarding_page.dart';
 import '../../features/home/presentation/view/all_product.dart';
 import '../../features/profile/presentation/views/edit_profile.dart';
