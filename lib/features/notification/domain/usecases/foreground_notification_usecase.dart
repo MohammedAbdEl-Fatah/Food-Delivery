@@ -7,7 +7,7 @@ class ForegroundNotificationUsecase {
 
   ForegroundNotificationUsecase(this._notificationRepository);
 
-  Stream<NotificationEntity> getForegroundNotifications() {
-    return _notificationRepository.foregroundNotifications;
-  }
+  Stream<NotificationEntity> call() =>
+     _notificationRepository.foregroundNotifications;
+  
 }

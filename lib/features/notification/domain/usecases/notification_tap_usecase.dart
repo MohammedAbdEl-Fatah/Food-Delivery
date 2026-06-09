@@ -7,7 +7,7 @@ class NotificationTapUsecase {
 
   NotificationTapUsecase(this._notificationRepository);
 
-  Stream<NotificationEntity> getNotificationTap() {
+  Stream<NotificationEntity> call() {
     return _notificationRepository.notificationTap;
   }
 }

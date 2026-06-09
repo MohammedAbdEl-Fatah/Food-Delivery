@@ -7,7 +7,7 @@ class GetInitialNotificationUsecase {
 
   GetInitialNotificationUsecase(this._notificationRepository);
 
-  Future<NotificationEntity?> getInitialNotification() {
+  Future<NotificationEntity?> call() {
     return _notificationRepository.getInitialNotification();
   }
 }
