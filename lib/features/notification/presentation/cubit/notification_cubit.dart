@@ -12,7 +12,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   final ForegroundNotificationUsecase _listenForeground;
   final NotificationTapUsecase _listenTaps;
   final GetInitialNotificationUsecase _getInitial;
-
+  final List<NotificationEntity> _notifications = [];
   StreamSubscription? _foregroundSub;
   StreamSubscription? _tapSub;
 
@@ -25,22 +25,59 @@ class NotificationCubit extends Cubit<NotificationState> {
        _getInitial = getInitial,
        super(NotificationInitialState());
 
+  void _emitLoaded() =>
+      emit(NotificationLoadedState(List.from(_notifications)));
+
   Future<void> init() async {
+    // TODO (Hive step): load saved notifications here
+    // _notifications.addAll(await _localRepo.getAll());
+    _emitLoaded();
     // Case 1: app was killed, user tapped notification
     final initial = await _getInitial();
     if (initial != null) {
       emit(NotificationScreenOpenState(notificationEntity: initial));
     }
 
-    // Case 2: app in foreground → show custom banner
-    _foregroundSub = _listenForeground().listen((notification) {
-      emit(NotificationBannerVisibleState(notificationEntity: notification));
-    });
+    _foregroundSub = _listenForeground().listen(_handleForeground);
+    _tapSub = _listenTaps().listen(_handleTap);
+  }
 
-    // Case 3: app in background, user taps → navigate to screen
-    _tapSub = _listenTaps().listen((notification) {
-      emit(NotificationScreenOpenState(notificationEntity: notification));
-    });
+  void _handleForeground(NotificationEntity n) {
+    _notifications.insert(0, n);
+    // TODO (Hive step): await _localRepo.save(n);
+    emit(NotificationBannerVisibleState(notificationEntity: n));
+  }
+
+  void _handleTap(NotificationEntity n) {
+    _markRead(n.id);
+    emit(NotificationScreenOpenState(notificationEntity: n));
+  }
+
+  void markAsRead(String id) {
+    _markRead(id);
+    _emitLoaded();
+  }
+
+  void markAllRead() {
+    for (int i = 0; i < _notifications.length; i++) {
+      _notifications[i] = _notifications[i].copyWith(isRead: true);
+    }
+    // TODO (Hive step): await _localRepo.saveAll(_notifications);
+    _emitLoaded();
+  }
+
+  void deleteNotification(String id) {
+    _notifications.removeWhere((n) => n.id == id);
+    // TODO (Hive step): await _localRepo.delete(id);
+    _emitLoaded();
+  }
+
+  void _markRead(String id) {
+    final idx = _notifications.indexWhere((n) => n.id == id);
+    if (idx != -1) {
+      _notifications[idx] = _notifications[idx].copyWith(isRead: true);
+      // TODO (Hive step): await _localRepo.save(_notifications[idx]);
+    }
   }
 
   void hideBanner() => emit(NotificationBannerHiddenState());

@@ -9,10 +9,13 @@ class ImplFcmDataSource implements FCMDataSource {
   //more clean code when using map or object ====== NotificationEntity
   NotificationEntity _mapToEntity(RemoteMessage message) {
     return NotificationEntity(
+      id: message.messageId ?? '',
       title: message.notification?.title ?? '',
       body: message.notification?.body ?? '',
       data: message.data,
       receivedAt: DateTime.now(),
+      isRead: false,
+      type: NotificationType.system, // TODO: make it dynamic based on data
     );
   }
 

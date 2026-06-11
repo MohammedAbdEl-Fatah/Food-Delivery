@@ -1,37 +1,143 @@
+// features/notifications/presentation/widgets/item_notification.dart
 import 'package:flutter/material.dart';
 
-import '../../../../core/Colors/color_manager.dart';
+import '../../domain/entity/notification_entity.dart';
 
 class ItemNotification extends StatelessWidget {
+  final NotificationEntity notification;
+  final VoidCallback onTap;
+  final VoidCallback onDelete;
+
   const ItemNotification({
     super.key,
-    required this.title,
-    required this.subtitle,
-    required this.time,
+    required this.notification,
+    required this.onTap,
+    required this.onDelete,
   });
-  final String title;
-  final String subtitle;
-  final String time;
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: ColorManager.white,
-      child: ListTile(
-        title: Text(title), //title of notification
-        subtitle: Text(subtitle), //body of subtitle
-        leading: const Card(
-          color: ColorManager.lightGrey,
-          margin: EdgeInsets.symmetric(horizontal: 4),
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.notification_add), //stutes icon
+    return Dismissible(
+      key: Key(notification.id),
+      direction: DismissDirection.endToStart,
+      onDismissed: (_) => onDelete(),
+      background: _buildDeleteBackground(),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          color: notification.isRead
+              ? null
+              : Theme.of(context).colorScheme.surfaceContainerLow,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _TypeIcon(type: notification.type),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      notification.title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: notification.isRead
+                            ? FontWeight.normal
+                            : FontWeight.w600,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      notification.body,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.6),
+                          ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      _formatTime(notification.receivedAt),
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.4),
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              if (!notification.isRead)
+                Container(
+                  width: 8,
+                  height: 8,
+                  margin: const EdgeInsets.only(top: 4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+            ],
           ),
         ),
-        trailing: Text(time),
-
-        ///value time
       ),
+    );
+  }
+
+  Widget _buildDeleteBackground() {
+    return Container(
+      color: Colors.red.shade600,
+      alignment: Alignment.centerRight,
+      padding: const EdgeInsets.only(right: 20),
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.delete_outline, color: Colors.white, size: 22),
+          SizedBox(height: 4),
+          Text('Delete', style: TextStyle(color: Colors.white, fontSize: 11)),
+        ],
+      ),
+    );
+  }
+
+  String _formatTime(DateTime dt) {
+    final now = DateTime.now();
+    final diff = now.difference(dt);
+    if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
+    if (diff.inHours < 24) return '${diff.inHours}h ago';
+    if (diff.inDays == 1) return 'Yesterday';
+    return '${diff.inDays}d ago';
+  }
+}
+
+
+// features/notifications/presentation/widgets/_type_icon.dart
+class _TypeIcon extends StatelessWidget {
+  final NotificationType type;
+  const _TypeIcon({required this.type});
+
+  @override
+  Widget build(BuildContext context) {
+    final (icon, bg, fg) = switch (type) {
+      NotificationType.order   => (Icons.local_shipping_outlined,   const Color(0xFFE6F1FB), const Color(0xFF185FA5)),
+      NotificationType.discount => (Icons.local_offer_outlined,     const Color(0xFFEAF3DE), const Color(0xFF3B6D11)),
+      NotificationType.payment  => (Icons.credit_card_outlined,     const Color(0xFFEEEDFE), const Color(0xFF534AB7)),
+      NotificationType.system   => (Icons.info_outline,             const Color(0xFFF1EFE8), const Color(0xFF5F5E5A)),
+    };
+
+    return Container(
+      width: 42,
+      height: 42,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: bg),
+      child: Icon(icon, color: fg, size: 20),
     );
   }
 }

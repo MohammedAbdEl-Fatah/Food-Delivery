@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/core/router/contents_router.dart';
 import 'package:food_delivery/firebase_options.dart';
@@ -19,6 +20,8 @@ void main() async {
   ]);
 
   await setupServiceLocator();
+  await FirebaseMessageService().init();
+
   final seenOnBoarding = AppPreferences.instance.getBool(
     key: SharedPreferenceKey.seenOnBoarding,
   );
@@ -29,5 +32,4 @@ void main() async {
     start = ContentsRouter.auth;
   }
   runApp(MyApp(start: start));
-  await FirebaseMessageService().init();
 }
