@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:food_delivery/core/router/contents_router.dart';
 import 'package:food_delivery/firebase_options.dart';
 import 'package:food_delivery/my_app.dart';
@@ -9,7 +9,7 @@ import 'core/contents/enum.dart';
 import 'core/di/servier_locator.dart';
 import 'core/service/firebase_message_service.dart';
 import 'core/shared/shared_preference.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'features/notification/presentation/cubit/notification_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +21,7 @@ void main() async {
 
   await setupServiceLocator();
   await FirebaseMessageService().init();
+  await sl<NotificationCubit>().init();
 
   final seenOnBoarding = AppPreferences.instance.getBool(
     key: SharedPreferenceKey.seenOnBoarding,

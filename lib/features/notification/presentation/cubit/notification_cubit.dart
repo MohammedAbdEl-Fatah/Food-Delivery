@@ -15,6 +15,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   final List<NotificationEntity> _notifications = [];
   StreamSubscription? _foregroundSub;
   StreamSubscription? _tapSub;
+  bool _initialized = false;
 
   NotificationCubit({
     required ForegroundNotificationUsecase listenForeground,
@@ -25,31 +26,48 @@ class NotificationCubit extends Cubit<NotificationState> {
        _getInitial = getInitial,
        super(NotificationInitialState());
 
+  List<NotificationEntity> get notifications => List.unmodifiable(_notifications);
+
   void _emitLoaded() =>
       emit(NotificationLoadedState(List.from(_notifications)));
 
   Future<void> init() async {
+    if (_initialized) return;
+    _initialized = true;
+
     // TODO (Hive step): load saved notifications here
     // _notifications.addAll(await _localRepo.getAll());
-    _emitLoaded();
-    // Case 1: app was killed, user tapped notification
+
+    // App was killed — user tapped a notification to launch the app.
     final initial = await _getInitial();
     if (initial != null) {
+      _upsertNotification(initial);
+      _markRead(initial.id);
+      _emitLoaded();
       emit(NotificationScreenOpenState(notificationEntity: initial));
+    } else {
+      _emitLoaded();
     }
 
     _foregroundSub = _listenForeground().listen(_handleForeground);
     _tapSub = _listenTaps().listen(_handleTap);
   }
 
-  void _handleForeground(NotificationEntity n) {
+  void _upsertNotification(NotificationEntity n) {
+    _notifications.removeWhere((item) => item.id == n.id);
     _notifications.insert(0, n);
+  }
+
+  void _handleForeground(NotificationEntity n) {
+    _upsertNotification(n);
     // TODO (Hive step): await _localRepo.save(n);
-    emit(NotificationBannerVisibleState(notificationEntity: n));
+    _emitLoaded();
   }
 
   void _handleTap(NotificationEntity n) {
+    _upsertNotification(n);
     _markRead(n.id);
+    _emitLoaded();
     emit(NotificationScreenOpenState(notificationEntity: n));
   }
 

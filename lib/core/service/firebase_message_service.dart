@@ -6,7 +6,6 @@ class FirebaseMessageService {
   Future<void> init() async {
     await _requestPermission();
     await _getToken();
-    _initListeners();
   }
 
   Future<void> _requestPermission() async {
@@ -18,21 +17,4 @@ class FirebaseMessageService {
     print('FCM Token: $token');
   }
 
-  void _initListeners() {
-    // Foreground
-    FirebaseMessaging.onMessage.listen(handleMessage);
-
-    // Background (when user taps notification)
-    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
-
-    // Terminated
-    _firebaseMessaging.getInitialMessage().then(handleMessage);
-  }
-
-  void handleMessage(RemoteMessage? message) {
-    if (message == null) return;
-
-    print('Message data: ${message.data}');
-    // navigatorKey.currentState?.pushNamed('/notification');
-  }
 }

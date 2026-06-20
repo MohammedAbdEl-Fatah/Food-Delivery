@@ -8,10 +8,19 @@ class ImplFcmDataSource implements FCMDataSource {
   ImplFcmDataSource(this._message);
   //more clean code when using map or object ====== NotificationEntity
   NotificationEntity _mapToEntity(RemoteMessage message) {
+    final title =
+        message.notification?.title ?? message.data['title']?.toString() ?? '';
+    final body =
+        message.notification?.body ?? message.data['body']?.toString() ?? '';
+    final id =
+        message.messageId ??
+        message.data['id']?.toString() ??
+        '${title}_${body}_${message.sentTime?.millisecondsSinceEpoch ?? DateTime.now().millisecondsSinceEpoch}';
+
     return NotificationEntity(
-      id: message.messageId ?? '',
-      title: message.notification?.title ?? '',
-      body: message.notification?.body ?? '',
+      id: id,
+      title: title,
+      body: body,
       data: message.data,
       receivedAt: DateTime.now(),
       isRead: false,

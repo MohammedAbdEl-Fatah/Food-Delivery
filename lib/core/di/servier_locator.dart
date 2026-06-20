@@ -47,7 +47,7 @@ void registerNotificationDependencies() {
   sl.registerLazySingleton(
     () => GetInitialNotificationUsecase(sl<NotificationRepository>()),
   );
-  sl.registerFactory(
+  sl.registerLazySingleton(
     () => NotificationCubit(
       listenForeground: sl<ForegroundNotificationUsecase>(),
       listenTaps: sl<NotificationTapUsecase>(),

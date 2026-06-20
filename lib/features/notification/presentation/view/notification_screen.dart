@@ -1,9 +1,6 @@
 // features/notifications/presentation/screens/notification_screen.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_delivery/core/di/servier_locator.dart';
-import 'package:food_delivery/core/service/firebase_message_service.dart';
 
 import '../../domain/entity/notification_entity.dart';
 import '../cubit/notification_cubit.dart';
@@ -14,13 +11,7 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) {
-        registerNotificationDependencies();
-        return sl<NotificationCubit>()..init();
-      },
-      child: const _NotificationView(),
-    );
+    return const _NotificationView();
   }
 }
 
@@ -35,7 +26,12 @@ class _NotificationView extends StatelessWidget {
         actions: [
           BlocBuilder<NotificationCubit, NotificationState>(
             builder: (context, state) {
-              if (state is NotificationLoadedState && state.unread.isNotEmpty) {
+              final unread = context
+                  .read<NotificationCubit>()
+                  .notifications
+                  .where((n) => !n.isRead)
+                  .toList();
+              if (unread.isNotEmpty) {
                 return TextButton(
                   onPressed:
                       () => context.read<NotificationCubit>().markAllRead(),
@@ -49,23 +45,28 @@ class _NotificationView extends StatelessWidget {
       ),
       body: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-          if (state is! NotificationLoadedState) {
+          if (state is NotificationInitialState) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state.notifications.isEmpty) {
+          final notifications = context.read<NotificationCubit>().notifications;
+
+          if (notifications.isEmpty) {
             return const _EmptyState();
           }
 
+          final unread = notifications.where((n) => !n.isRead).toList();
+          final read = notifications.where((n) => n.isRead).toList();
+
           return CustomScrollView(
             slivers: [
-              if (state.unread.isNotEmpty) ...[
+              if (unread.isNotEmpty) ...[
                 const _SectionHeader(label: 'New'),
-                _NotificationSliver(notifications: state.unread),
+                _NotificationSliver(notifications: unread),
               ],
-              if (state.read.isNotEmpty) ...[
+              if (read.isNotEmpty) ...[
                 const _SectionHeader(label: 'Earlier'),
-                _NotificationSliver(notifications: state.read),
+                _NotificationSliver(notifications: read),
               ],
             ],
           );
@@ -113,11 +114,6 @@ class _NotificationSliver extends StatelessWidget {
           notification: n,
           onTap: () {
             context.read<NotificationCubit>().markAsRead(n.id);
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (_) => NotificationDetailScreen(notification: n),
-            //   ),
-            // );
           },
           onDelete:
               () => context.read<NotificationCubit>().deleteNotification(n.id),
