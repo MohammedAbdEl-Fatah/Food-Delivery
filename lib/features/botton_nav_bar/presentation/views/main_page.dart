@@ -29,7 +29,11 @@ class _MainScreenState extends State<MainScreen> {
       ],
       child: BlocConsumer<ChangePageCubit, int>(
         listener: (context, index) {
-          _pageController.jumpToPage(index);
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
         },
         builder: (context, stateIndex) {
           return Scaffold(
@@ -48,7 +52,11 @@ class _MainScreenState extends State<MainScreen> {
               currentIndex: stateIndex,
               onTap: (index) {
                 context.read<ChangePageCubit>().changePage(index);
-                _pageController.jumpToPage(index);
+                _pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
               },
             ),
           );

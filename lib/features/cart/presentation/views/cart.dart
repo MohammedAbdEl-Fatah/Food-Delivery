@@ -20,8 +20,8 @@ class CartPage extends StatelessWidget {
             _headerTitle(),
             SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
             // body condtion
-            // _buildCartEmpty(context),
-            _buildbodyhasCart(),
+            _buildCartEmpty(context),
+            // _buildbodyhasCart(),
           ],
         ),
       ),
@@ -38,11 +38,11 @@ class CartPage extends StatelessWidget {
   Widget _buildCartEmpty(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: MediaQuery.sizeOf(context).height * 0.04),
+        SizedBox(height: MediaQuery.sizeOf(context).height * 0.09),
         //image
-        Image.asset(ImageResources.emptyCart, fit: BoxFit.cover),
+        Image.asset(ImageResources.emptyCart, fit: BoxFit.cover, height: 200),
         //text header
-        SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
+        SizedBox(height: MediaQuery.sizeOf(context).height * 0.04),
         Text(
           "Ouch! Hungry",
           style: AppTextStyle.header5.copyWith(fontWeight: FontWeight.bold),
