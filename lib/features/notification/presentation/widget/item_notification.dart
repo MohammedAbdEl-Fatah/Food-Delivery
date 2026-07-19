@@ -1,5 +1,7 @@
 // features/notifications/presentation/widgets/item_notification.dart
 import 'package:flutter/material.dart';
+import 'package:food_delivery/core/Colors/color_manager.dart';
+import 'package:food_delivery/core/style/app_text_style.dart';
 
 import '../../domain/entity/notification_entity.dart';
 
@@ -25,9 +27,10 @@ class ItemNotification extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          color: notification.isRead
-              ? null
-              : Theme.of(context).colorScheme.surfaceContainerLow,
+          color:
+              notification.isRead
+                  ? null
+                  : Theme.of(context).colorScheme.surfaceContainerLow,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,11 +43,8 @@ class ItemNotification extends StatelessWidget {
                   children: [
                     Text(
                       notification.title,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: notification.isRead
-                            ? FontWeight.normal
-                            : FontWeight.w600,
+                      style: AppTextStyle.bodyLarge.copyWith(
+                        color: ColorManager.black,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -52,24 +52,18 @@ class ItemNotification extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       notification.body,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.6),
-                          ),
+                      style: AppTextStyle.bodySmall.copyWith(
+                        color: ColorManager.black.withValues(alpha: 0.6),
+                      ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       _formatTime(notification.receivedAt),
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.4),
-                          ),
+                      style: AppTextStyle.bodySmall.copyWith(
+                        color: ColorManager.black.withValues(alpha: 0.6),
+                      ),
                     ),
                   ],
                 ),
@@ -118,8 +112,6 @@ class ItemNotification extends StatelessWidget {
   }
 }
 
-
-// features/notifications/presentation/widgets/_type_icon.dart
 class _TypeIcon extends StatelessWidget {
   final NotificationType type;
   const _TypeIcon({required this.type});
@@ -127,10 +119,26 @@ class _TypeIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (icon, bg, fg) = switch (type) {
-      NotificationType.order   => (Icons.local_shipping_outlined,   const Color(0xFFE6F1FB), const Color(0xFF185FA5)),
-      NotificationType.discount => (Icons.local_offer_outlined,     const Color(0xFFEAF3DE), const Color(0xFF3B6D11)),
-      NotificationType.payment  => (Icons.credit_card_outlined,     const Color(0xFFEEEDFE), const Color(0xFF534AB7)),
-      NotificationType.system   => (Icons.info_outline,             const Color(0xFFF1EFE8), const Color(0xFF5F5E5A)),
+      NotificationType.order => (
+        Icons.local_shipping_outlined,
+        const Color(0xFFE6F1FB),
+        const Color(0xFF185FA5),
+      ),
+      NotificationType.discount => (
+        Icons.local_offer_outlined,
+        const Color(0xFFEAF3DE),
+        const Color(0xFF3B6D11),
+      ),
+      NotificationType.payment => (
+        Icons.credit_card_outlined,
+        const Color(0xFFEEEDFE),
+        const Color(0xFF534AB7),
+      ),
+      NotificationType.system => (
+        Icons.info_outline,
+        const Color(0xFFF1EFE8),
+        const Color(0xFF5F5E5A),
+      ),
     };
 
     return Container(

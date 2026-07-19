@@ -67,11 +67,12 @@ class MyApp extends StatelessWidget {
               initialRoute: start,
               onGenerateRoute: NavigatorRoute.generateRoute,
               theme: ThemeData(
-                scaffoldBackgroundColor: Color(0xFffcfcfc),
+                scaffoldBackgroundColor: ColorManager.white,
                 primaryColor: ColorManager.primary,
                 textSelectionTheme: TextSelectionThemeData(
                   cursorColor: ColorManager.primary, //cursor
-                  selectionHandleColor: ColorManager.primary, // pointer of cursor
+                  selectionHandleColor:
+                      ColorManager.primary, // pointer of cursor
                   selectionColor: ColorManager.primary.withValues(
                     alpha: 0.3,
                   ), // shadow select
