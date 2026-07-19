@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
 import 'package:food_delivery/core/contents/images.dart';
@@ -13,13 +14,17 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 12),
+        padding: const EdgeInsetsGeometry.symmetric(
+          horizontal: 20,
+          vertical: 12,
+        ),
         child: Column(
           children: [
             // header title
             _headerTitle(),
             SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
             // body condtion
+            // TODO : cubit swap UI when cart has or dosen't have products
             _buildCartEmpty(context),
             // _buildbodyhasCart(),
           ],
@@ -40,7 +45,11 @@ class CartPage extends StatelessWidget {
       children: [
         SizedBox(height: MediaQuery.sizeOf(context).height * 0.09),
         //image
-        Image.asset(ImageResources.emptyCart, fit: BoxFit.cover, height: 200),
+        Image.asset(
+          ImageResources.emptyCart,
+          fit: BoxFit.cover,
+          height: MediaQuery.sizeOf(context).height * 0.3,
+        ),
         //text header
         SizedBox(height: MediaQuery.sizeOf(context).height * 0.04),
         Text(
