@@ -33,7 +33,7 @@ class _AllProductViewState extends State<AllProductView> {
                     onChanged: (value) {
                       context.read<ProductCubit>().searchProduct(value);
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Search food...",
                       border: InputBorder.none,
                     ),
@@ -47,7 +47,7 @@ class _AllProductViewState extends State<AllProductView> {
                   ),
           actions: [
             IconButton(
-              icon: isSearch ? Icon(Icons.close) : Icon(Icons.search),
+              icon: isSearch ? const Icon(Icons.close) : const Icon(Icons.search),
               onPressed: () {
                 setState(() {
                   isSearch = !isSearch;

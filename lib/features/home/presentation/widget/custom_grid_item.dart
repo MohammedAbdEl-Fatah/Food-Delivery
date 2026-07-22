@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
@@ -6,10 +9,11 @@ import 'package:food_delivery/core/utils/helper/format_price.dart';
 import 'package:food_delivery/features/home/presentation/widget/food_item_image.dart';
 
 import '../../../../core/model/product_model.dart';
+import '../../../cart/presentation/cubit/cart_cubit.dart';
 
 class CustomGridItem extends StatelessWidget {
   const CustomGridItem({super.key, required this.product});
-  final ProductModel product;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class CustomGridItem extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: _buildPrice(),
+            child: _buildPrice(context),
           ),
         ],
       ),
@@ -56,7 +60,7 @@ class CustomGridItem extends StatelessWidget {
     ),
   );
 
-  Widget _buildPrice() => Row(
+  Widget _buildPrice(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Text(
@@ -66,10 +70,11 @@ class CustomGridItem extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      Spacer(),
+      const Spacer(),
       IconButton(
         onPressed: () {
-          //todo add list of shopping items
+          log("add cart from grid");
+          context.read<CartCubit>().addProductToCart(product);
         },
         icon: const Icon(
           FontAwesomeIcons.cartShopping,

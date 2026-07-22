@@ -11,7 +11,7 @@ class CustomGridViewBuilder extends StatelessWidget {
     this.physics,
   });
 
-  final List<ProductModel> products;
+  final List<ProductEntity> products;
   final ScrollPhysics? physics;
 
   @override

@@ -87,7 +87,7 @@ Future<void> setupServiceLocator() async {
   );
 
   sl.registerLazySingleton<ProductsRepositoryImpl>(
-    () => ProductsRepositoryImpl(sl<FirebaseStoreService<ProductModel>>()),
+    () => ProductsRepositoryImpl(sl<FirebaseStoreService<ProductEntity>>()),
   );
 
   // Firebase service
@@ -100,10 +100,10 @@ Future<void> setupServiceLocator() async {
   );
 
   sl.registerLazySingleton(
-    () => FirebaseStoreService<ProductModel>(
+    () => FirebaseStoreService<ProductEntity>(
       collectionPath: StoreKey.products.name,
       firestore: FirebaseFirestore.instance,
-      fromMap: ProductModel.fromMap,
+      fromMap: ProductEntity.fromMap,
     ),
   );
 }

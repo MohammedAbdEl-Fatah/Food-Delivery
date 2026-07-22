@@ -9,7 +9,7 @@ class GetProductByCategory {
 
   GetProductByCategory(this._productsRepostiry);
 
-  Future<Either<Failure, List<ProductModel>>> call(String category) {
+  Future<Either<Failure, List<ProductEntity>>> call(String category) {
     return _productsRepostiry.getProducts(category);
   }
 }

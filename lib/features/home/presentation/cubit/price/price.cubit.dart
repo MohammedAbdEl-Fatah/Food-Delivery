@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-part 'cart.status.dart';
+part 'price.status.dart';
 
-class CartCubit extends Cubit<CartStatus> {
+class PriceCubit extends Cubit<PriceStatus> {
   final int price;
-  CartCubit({required this.price})
-    : super(CartStatus(quantity: 1, totalprice: price));
+  PriceCubit({required this.price})
+    : super(PriceStatus(quantity: 1, totalprice: price));
 
   void incrementPrice() {
     final newQuantity = state.quantity + 1;

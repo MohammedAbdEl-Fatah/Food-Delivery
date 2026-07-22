@@ -7,7 +7,7 @@ import '../../../../core/model/product_model.dart';
 class GetAllProduct {
   final ProductsRepostiry _productsRepostiry;
   GetAllProduct(this._productsRepostiry);
-  Future<Either<Failure, List<ProductModel>>> call() {
+  Future<Either<Failure, List<ProductEntity>>> call() {
     return _productsRepostiry.getAllProducts();
   }
 }

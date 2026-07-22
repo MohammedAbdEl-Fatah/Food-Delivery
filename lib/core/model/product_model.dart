@@ -1,6 +1,6 @@
 import 'package:food_delivery/core/service/firestore_model.dart';
 
-class ProductModel implements FirestoreModel {
+class ProductEntity implements FirestoreModel {
   @override
   final String id;
   final String title;
@@ -15,7 +15,7 @@ class ProductModel implements FirestoreModel {
   final bool isDelivered;
   final num priceDelivery;
 
-  ProductModel({
+  ProductEntity({
     required this.id,
     required this.title,
     required this.description,
@@ -46,8 +46,8 @@ class ProductModel implements FirestoreModel {
     };
   }
 
-  factory ProductModel.fromMap(Map<String, dynamic> map) {
-    return ProductModel(
+  factory ProductEntity.fromMap(Map<String, dynamic> map) {
+    return ProductEntity(
       id: (map['id'] ?? '') as String,
       title: (map['title'] ?? '') as String,
       description: (map['description'] ?? '') as String,

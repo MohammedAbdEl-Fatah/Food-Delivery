@@ -18,23 +18,22 @@ class _FoodItemImageState extends State<FoodItemImage> {
 
   @override
   Widget build(BuildContext context) {
-    log("IMAGE URL => ${widget.imagePath}");
     return Expanded(
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(25),
               topRight: Radius.circular(25),
             ),
             // child: Image.network(widget.imagePath, fit: BoxFit.cover),
             child: CachedNetworkImage(
               imageUrl: widget.imagePath,
-              fadeInDuration: Duration(milliseconds: 300),
+              fadeInDuration: const Duration(milliseconds: 300),
               height: 300,
               width: 300,
               fit: BoxFit.cover,
-              placeholder: (context, url) => Center(child: Loading()),
+              placeholder: (context, url) => const Center(child: Loading()),
               errorWidget:
                   (context, url, error) => const Icon(Icons.broken_image),
             ),

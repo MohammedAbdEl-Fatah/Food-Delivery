@@ -13,10 +13,10 @@ class ProductCubit extends Cubit<ProductStatus> {
 
   final GetAllProduct _getAllProduct;
   final GetProductByCategory _getProductByCategory;
-  List<ProductModel> _allProducts = [];
+  List<ProductEntity> _allProducts = [];
 
   Future<void> _loadProducts(
-    Future<Either<Failure, List<ProductModel>>> Function() loader,
+    Future<Either<Failure, List<ProductEntity>>> Function() loader,
   ) async {
     emit(ProductLoading());
 

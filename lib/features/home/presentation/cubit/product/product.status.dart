@@ -7,7 +7,7 @@ class ProductInit extends ProductStatus {}
 class ProductLoading extends ProductStatus {}
 
 class ProductSuccess extends ProductStatus {
-  final List<ProductModel> products;
+  final List<ProductEntity> products;
   ProductSuccess({required this.products});
 }
 

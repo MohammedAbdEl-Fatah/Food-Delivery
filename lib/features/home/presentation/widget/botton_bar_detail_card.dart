@@ -1,39 +1,48 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
+import 'package:food_delivery/core/model/product_model.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 import 'package:food_delivery/core/utils/helper/format_price.dart';
-import 'package:food_delivery/features/home/presentation/cubit/cart/cart.cubit.dart';
+import 'package:food_delivery/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:food_delivery/features/home/presentation/cubit/price/price.cubit.dart';
 
 class BottonBarDetailCard extends StatelessWidget {
-  // final ProductEntity product;
+  final ProductEntity product;
 
-  const BottonBarDetailCard({super.key});
+  const BottonBarDetailCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, CartStatus>(
+    return BlocBuilder<PriceCubit, PriceStatus>(
       builder: (context, state) {
         return Container(
           width: double.infinity,
           height: 125,
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   //cubit connected with cart
-                  _addNewEntry(state, context),
+                  _addOrRemoveItem(state, context),
                   _totalPrice(price: state.totalprice),
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  log("add product to cart from detials page");
+                  context.read<CartCubit>().addProductToCart(product);
+                },
                 style: ButtonStyle(
-                  elevation: WidgetStatePropertyAll(0),
-                  backgroundColor: WidgetStatePropertyAll(ColorManager.primary),
+                  elevation: const WidgetStatePropertyAll(0),
+                  backgroundColor: const WidgetStatePropertyAll(
+                    ColorManager.primary,
+                  ),
                   padding: WidgetStatePropertyAll(
                     EdgeInsets.symmetric(
                       horizontal: MediaQuery.sizeOf(context).width * 0.3,
@@ -44,7 +53,7 @@ class BottonBarDetailCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   spacing: 20,
                   children: [
-                    Icon(
+                    const Icon(
                       FontAwesomeIcons.cartShopping,
                       color: ColorManager.white,
                     ),
@@ -64,15 +73,15 @@ class BottonBarDetailCard extends StatelessWidget {
     );
   }
 
-  Widget _addNewEntry(CartStatus state, BuildContext context) {
+  Widget _addOrRemoveItem(PriceStatus state, BuildContext context) {
     return Row(
       children: [
         //
         IconButton(
           onPressed: () {
-            context.read<CartCubit>().decrementPrice();
+            context.read<PriceCubit>().decrementPrice();
           },
-          icon: Icon(FontAwesomeIcons.minus),
+          icon: const Icon(FontAwesomeIcons.minus),
           color: ColorManager.black,
         ),
         Text(
@@ -81,9 +90,9 @@ class BottonBarDetailCard extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            context.read<CartCubit>().incrementPrice();
+            context.read<PriceCubit>().incrementPrice();
           },
-          icon: Icon(FontAwesomeIcons.plus),
+          icon: const Icon(FontAwesomeIcons.plus),
           color: ColorManager.black,
         ),
       ],

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
-import 'package:food_delivery/core/contents/images.dart';
 import 'package:food_delivery/core/model/product_model.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 import 'package:food_delivery/core/utils/helper/format_price.dart';
-import 'package:food_delivery/features/home/presentation/cubit/cart/cart.cubit.dart';
+import 'package:food_delivery/features/home/presentation/cubit/price/price.cubit.dart';
 import 'package:food_delivery/features/home/presentation/widget/botton_bar_detail_card.dart';
 
 import '../../../../core/widget/loading.dart';
@@ -23,11 +22,10 @@ class _DetailsCardState extends State<DetailsCard> {
   bool islove = false;
   @override
   Widget build(BuildContext context) {
-    //it's model of cart todo:::
-    final ProductModel product =
-        ModalRoute.of(context)!.settings.arguments as ProductModel;
+    final ProductEntity product =
+        ModalRoute.of(context)!.settings.arguments as ProductEntity;
     return BlocProvider(
-      create: (context) => CartCubit(price: product.price as int),
+      create: (context) => PriceCubit(price: product.price as int),
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
@@ -42,7 +40,7 @@ class _DetailsCardState extends State<DetailsCard> {
               ),
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(right: 12),
+                  padding: const EdgeInsets.only(right: 12),
                   child: GestureDetector(
                     onTap: () {
                       //make it red or white
@@ -60,11 +58,11 @@ class _DetailsCardState extends State<DetailsCard> {
               flexibleSpace: FlexibleSpaceBar(
                 background: CachedNetworkImage(
                   imageUrl: product.urlImage!,
-                  fadeInDuration: Duration(milliseconds: 300),
+                  fadeInDuration: const Duration(milliseconds: 300),
                   height: 300,
                   width: 300,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) => Center(child: Loading()),
+                  placeholder: (context, url) => const Center(child: Loading()),
                   errorWidget:
                       (context, url, error) => const Icon(Icons.broken_image),
                 ),
@@ -72,7 +70,7 @@ class _DetailsCardState extends State<DetailsCard> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
+                padding: const EdgeInsetsGeometry.symmetric(horizontal: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -83,8 +81,8 @@ class _DetailsCardState extends State<DetailsCard> {
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.016),
                     _detailsWork(
                       context,
-                      avgCookingTime: product.avgCookingTime as List<dynamic>,
-                      rating: product.rating as num,
+                      avgCookingTime: product.avgCookingTime,
+                      rating: product.rating,
                       isDelivered: product.isDelivered,
                       priceDelivery: product.priceDelivery as int,
                     ),
@@ -99,7 +97,7 @@ class _DetailsCardState extends State<DetailsCard> {
             ),
           ],
         ),
-        bottomNavigationBar: BottonBarDetailCard(),
+        bottomNavigationBar: BottonBarDetailCard(product: product),
       ),
     );
   }
@@ -109,7 +107,6 @@ class _DetailsCardState extends State<DetailsCard> {
   }
 
   Widget _price({required int price}) {
-    //todo change state price
     return Text(
       "\$ ${price.withComma} /Piece",
       style: AppTextStyle.header5.copyWith(
