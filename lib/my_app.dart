@@ -14,6 +14,8 @@ import 'package:food_delivery/features/auth/log_in/presentation/cubit/login/logi
 import 'package:food_delivery/features/auth/log_in/presentation/cubit/google_login/google_login_cubit.dart';
 import 'package:food_delivery/features/onboarding/presentation/cubit/on_boarding_cubit.dart';
 
+import 'features/cart/presentation/cubit/cart_cubit.dart';
+
 class MyApp extends StatelessWidget {
   final String start;
   const MyApp({super.key, required this.start});
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
         ),
+        BlocProvider(create: (_) => CartCubit()),
       ],
 
       child: AnnotatedRegion<SystemUiOverlayStyle>(
