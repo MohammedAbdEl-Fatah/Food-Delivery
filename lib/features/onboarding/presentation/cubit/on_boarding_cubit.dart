@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/core/contents/enum.dart' show SharedPreferenceKey;
 import 'package:food_delivery/core/router/contents_router.dart';
 
-import '../../../../core/shared/shared_preference.dart';
+import '../../../../core/storage/shared_preference.dart';
 
 part 'on_boarding_state.dart';
 

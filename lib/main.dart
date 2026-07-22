@@ -8,7 +8,7 @@ import 'package:food_delivery/my_app.dart';
 import 'core/contents/enum.dart';
 import 'core/di/servier_locator.dart';
 import 'core/service/firebase_message_service.dart';
-import 'core/shared/shared_preference.dart';
+import 'core/storage/shared_preference.dart';
 import 'features/notification/presentation/cubit/notification_cubit.dart';
 
 void main() async {

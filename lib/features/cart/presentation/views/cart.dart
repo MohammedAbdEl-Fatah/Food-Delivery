@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
 import 'package:food_delivery/core/contents/images.dart';
@@ -116,12 +115,12 @@ class CartPage extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: ColorManager.white,
-                side: BorderSide(color: ColorManager.primary),
+                side: const BorderSide(color: ColorManager.primary),
                 elevation: 0,
               ),
               child: Text(
@@ -141,7 +140,7 @@ class CartPage extends StatelessWidget {
         //list of cart items
         //total price + details
         Container(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(16),
@@ -211,7 +210,7 @@ class CartPage extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           subText,
           style: AppTextStyle.bodyMedium.copyWith(
@@ -229,18 +228,18 @@ class CartPage extends StatelessWidget {
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25.0),
-          borderSide: BorderSide(color: ColorManager.grey),
+          borderSide: const BorderSide(color: ColorManager.grey),
         ),
 
-        contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
         hintText: 'Enter Promo Code',
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           FontAwesomeIcons.percent,
           size: 16,
           color: ColorManager.primary,
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: ColorManager.grey),
+          borderSide: const BorderSide(color: ColorManager.grey),
           borderRadius: BorderRadius.circular(25.0),
         ),
 
@@ -251,7 +250,7 @@ class CartPage extends StatelessWidget {
               // Apply promo code logic
             },
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               backgroundColor: ColorManager.primary,
               elevation: 0,
             ),

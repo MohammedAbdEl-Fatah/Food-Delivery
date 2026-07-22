@@ -12,7 +12,7 @@ import 'package:food_delivery/features/auth/log_in/domain/repository/log_in_repo
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../../core/contents/enum.dart';
-import '../../../../../core/shared/shared_preference.dart';
+import '../../../../../core/storage/shared_preference.dart';
 
 class FirebaseLogInRepository extends LogInRepository {
   final FirebaseStoreService _fireStoreService =

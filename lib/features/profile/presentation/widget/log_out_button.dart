@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/Colors/color_manager.dart';
 import '../../../../core/contents/enum.dart';
 import '../../../../core/router/contents_router.dart';
-import '../../../../core/shared/shared_preference.dart';
+import '../../../../core/storage/shared_preference.dart';
 import '../../../../core/style/app_text_style.dart';
 
 class LogoutButton extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery/core/Colors/color_manager.dart';
 import 'package:food_delivery/core/contents/enum.dart';
 import 'package:food_delivery/core/model/user_model.dart';
-import 'package:food_delivery/core/shared/shared_preference.dart';
+import 'package:food_delivery/core/storage/shared_preference.dart';
 import 'package:food_delivery/core/widget/loading.dart';
 import 'package:food_delivery/features/profile/presentation/widget/edit_text_profile.dart';
 

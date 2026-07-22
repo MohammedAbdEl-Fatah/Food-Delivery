@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_delivery/core/shared/shared_preference.dart';
+import 'package:food_delivery/core/storage/shared_preference.dart';
 import 'package:food_delivery/features/profile/domain/use_case/get_profile_info.dart';
 
 import '../../../../core/contents/enum.dart';
