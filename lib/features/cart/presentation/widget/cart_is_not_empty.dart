@@ -9,6 +9,7 @@ import '../../../../core/Colors/color_manager.dart';
 import '../../../../core/utils/helper/format_price.dart';
 import '../../../../core/widget/loading.dart';
 import '../../../home/presentation/cubit/price/price.cubit.dart';
+import '../cubit/cart_cubit.dart';
 
 class CartItemsView extends StatelessWidget {
   final List<ProductEntity> items;
@@ -48,7 +49,7 @@ class CartItemsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _totalPrice(count: state.quantity, price: state.totalprice),
-                _addOrRemoveItem(state, context),
+                _addOrRemoveItem(state, product, context),
               ],
             ),
           ),
@@ -57,7 +58,11 @@ class CartItemsView extends StatelessWidget {
     );
   }
 
-  Widget _addOrRemoveItem(PriceStatus state, BuildContext context) {
+  Widget _addOrRemoveItem(
+    PriceStatus state,
+    ProductEntity product,
+    BuildContext context,
+  ) {
     return Row(
       children: [
         //
@@ -82,7 +87,7 @@ class CartItemsView extends StatelessWidget {
         const Spacer(),
         IconButton(
           onPressed: () {
-            // TODO: Implement remove item logic
+            context.read<CartCubit>().removeProductFromCart(product);
           },
 
           icon: const Icon(FontAwesomeIcons.trash, size: 21),

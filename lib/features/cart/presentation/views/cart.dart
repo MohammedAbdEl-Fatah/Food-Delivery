@@ -42,7 +42,15 @@ class CartPage extends StatelessWidget {
                               (context) => PriceCubit(
                                 price: state.items[index].price.toInt(),
                               ),
-                          child: CartItemsView(items: [state.items[index]]),
+                          child: BlocListener<PriceCubit, PriceStatus>(
+                            listener: (context, priceState) {
+                              context.read<CartCubit>().updateItemTotal(
+                                index,
+                                priceState.totalprice,
+                              );
+                            },
+                            child: CartItemsView(items: [state.items[index]]),
+                          ),
                         );
                       },
                     ),

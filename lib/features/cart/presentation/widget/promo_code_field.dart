@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/Colors/color_manager.dart';
 import '../../../../core/style/app_text_style.dart';
+import '../cubit/cart_cubit.dart';
 
-class PromoCodeField extends StatelessWidget {
+class PromoCodeField extends StatefulWidget {
   const PromoCodeField({super.key});
+
+  @override
+  State<PromoCodeField> createState() => _PromoCodeFieldState();
+}
+
+class _PromoCodeFieldState extends State<PromoCodeField> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: _controller,
       cursorColor: ColorManager.primary,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
@@ -36,7 +52,7 @@ class PromoCodeField extends StatelessWidget {
           padding: const EdgeInsets.only(right: 12.0),
           child: ElevatedButton(
             onPressed: () {
-              // Apply promo code logic
+              context.read<CartCubit>().applyPromoCode(_controller.text);
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
