@@ -28,7 +28,7 @@ class ProfilePage extends StatelessWidget {
               _appBar(),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
               // todo stack ::::::::image edit photo
-              PhotoProfileAndInfo(),
+              const PhotoProfileAndInfo(),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
               Align(
                 alignment: AlignmentGeometry.centerLeft,
@@ -113,7 +113,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
-              LogoutButton(),
+              const LogoutButton(),
             ],
           ),
         ),
@@ -147,7 +147,7 @@ class ProfilePage extends StatelessWidget {
             style: AppTextStyle.bodyLarge.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
-        trailing: Icon(FontAwesomeIcons.angleRight),
+        trailing: const Icon(FontAwesomeIcons.angleRight),
       ),
     );
   }

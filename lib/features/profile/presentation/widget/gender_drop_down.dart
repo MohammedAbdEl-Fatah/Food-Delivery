@@ -13,7 +13,7 @@ class GenderDropDown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Gender", style: AppTextStyle.bodyLarge),
+        const Text("Gender", style: AppTextStyle.bodyLarge),
         DropdownButtonFormField(
           value:
               (selectedGender == GENDER.male.name ||
@@ -37,7 +37,7 @@ class GenderDropDown extends StatelessWidget {
             focusedBorder: _buildBorder(isFocused: true),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }

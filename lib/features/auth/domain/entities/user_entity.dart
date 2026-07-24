@@ -1,6 +1,7 @@
 import 'package:food_delivery/core/service/firestore_model.dart';
 
 class UserEntity extends FirestoreModel {
+  @override
   final String id;
   final String name;
   final String email;

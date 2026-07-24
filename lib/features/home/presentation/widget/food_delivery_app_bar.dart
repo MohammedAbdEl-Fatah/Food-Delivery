@@ -12,20 +12,20 @@ class FoodDeliveryAppBar extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.30,
       width: MediaQuery.of(context).size.width * 1,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(ImageResources.appBar),
           fit: BoxFit.cover,
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Padding(
           padding: const EdgeInsets.only(top: 62.0),
           child: Column(
             spacing: 8,
             children: [
-              CustomAppBar(),
+              const CustomAppBar(),
 
               //header
               Align(

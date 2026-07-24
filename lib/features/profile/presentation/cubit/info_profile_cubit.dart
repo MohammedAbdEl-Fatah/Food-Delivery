@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_delivery/core/storage/shared_preference.dart';
@@ -28,7 +26,7 @@ class InfoProfileCubit extends Cubit<InfoProfileState> {
       );
 
       if (userID.isEmpty) {
-        emit(InfoProfileFialure("User not Logged in "));
+        emit(const InfoProfileFialure("User not Logged in "));
         return;
       }
       final user = await getProfileInfo(userID);

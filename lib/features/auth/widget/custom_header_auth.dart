@@ -19,7 +19,7 @@ class CustomHeaderAuth extends StatelessWidget {
           text,
           style: AppTextStyle.header4.copyWith(fontWeight: FontWeight.w600),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Opacity(
           opacity: 0.6,
           child: Text(

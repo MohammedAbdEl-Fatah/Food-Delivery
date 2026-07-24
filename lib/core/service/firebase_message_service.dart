@@ -13,8 +13,7 @@ class FirebaseMessageService {
   }
 
   Future<void> _getToken() async {
-    String? token = await _firebaseMessaging.getToken();
-    print('FCM Token: $token');
+    await _firebaseMessaging.getToken();
+    // print('FCM Token: $token');
   }
-
 }

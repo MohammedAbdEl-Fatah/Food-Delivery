@@ -89,7 +89,7 @@ class LogoutButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             FontAwesomeIcons.arrowRightFromBracket,
             color: ColorManager.error,
             size: 18,

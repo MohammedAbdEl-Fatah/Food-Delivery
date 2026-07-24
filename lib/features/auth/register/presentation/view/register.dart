@@ -68,7 +68,7 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomHeaderAuth(
+                      const CustomHeaderAuth(
                         text: TextString.headerRegister,
                         subText: TextString.headerSubRegister,
                       ),
@@ -150,7 +150,7 @@ class _RegisterState extends State<Register> {
                                     builder: (context, child) {
                                       return Theme(
                                         data: Theme.of(context).copyWith(
-                                          colorScheme: ColorScheme.light(
+                                          colorScheme: const ColorScheme.light(
                                             primary: ColorManager.primary,
                                             onPrimary: Colors.white,
                                             onSurface: Colors.black,
@@ -254,11 +254,11 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      CustomDivider(),
+                      const CustomDivider(),
                       const SizedBox(height: 24),
-                      CustomMethodSignIn(),
+                      const CustomMethodSignIn(),
                       const SizedBox(height: 32),
-                      CustomTextLogin(),
+                      const CustomTextLogin(),
                       const SizedBox(height: 14),
                     ],
                   ),

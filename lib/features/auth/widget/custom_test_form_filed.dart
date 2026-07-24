@@ -47,7 +47,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         hintText: widget.hint,
-        hintStyle: TextStyle(color: ColorManager.grey, fontSize: 14),
+        hintStyle: const TextStyle(color: ColorManager.grey, fontSize: 14),
         border: _outLineInPutBorder(),
         focusedBorder: _outLineInPutBorder(),
         errorBorder: _outLineInPutBorder(error: true),

@@ -19,21 +19,21 @@ class EditTextPrpfile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(text, style: AppTextStyle.bodyLarge),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextField(
           controller: controller,
           decoration: InputDecoration(
             enabledBorder: _buildBorder(),
             border: _buildBorder(),
             focusedBorder: _buildBorder().copyWith(
-              borderSide: BorderSide(color: ColorManager.primary),
+              borderSide: const BorderSide(color: ColorManager.primary),
             ),
             focusColor: ColorManager.primary,
             fillColor: ColorManager.white,
             hintText: hintText, //data info
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
       ],
     );
   }
@@ -41,7 +41,7 @@ class EditTextPrpfile extends StatelessWidget {
   OutlineInputBorder _buildBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: ColorManager.grey),
+      borderSide: const BorderSide(color: ColorManager.grey),
     );
   }
 }

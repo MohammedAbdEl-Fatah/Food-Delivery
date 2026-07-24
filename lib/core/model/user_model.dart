@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_delivery/core/contents/enum.dart';
 
 import '../service/firestore_model.dart';
 

@@ -96,7 +96,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     minRadius: MediaQuery.sizeOf(context).aspectRatio * 50 * 1,
                     // radius: 50,
                     //todo connect image by device or give for firebase if not null
-                    backgroundImage: AssetImage(ImageResources.drink),
+                    backgroundImage: const AssetImage(ImageResources.drink),
 
                     // child: Text(
                     //   "M",
@@ -226,7 +226,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           child:
               state is EditProfileLoading
                   ? const Loading()
-                  : Text('Save', style: AppTextStyle.bodyLarge),
+                  : const Text('Save', style: AppTextStyle.bodyLarge),
         );
       },
     );

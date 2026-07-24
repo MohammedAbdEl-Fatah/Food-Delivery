@@ -20,7 +20,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         emit(EditProfileError(message: error));
       },
       (_) {
-        emit(EditProfileSuccess(message: 'Profile updated successfully'));
+        emit(const EditProfileSuccess(message: 'Profile updated successfully'));
         
       },
     );

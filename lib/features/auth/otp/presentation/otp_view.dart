@@ -45,7 +45,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
@@ -67,7 +67,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
   Future<void> _generateAndSendOTP() async {
     final String email = ModalRoute.of(context)!.settings.arguments as String;
     _generatedOTP = OTPGenerator.generateOTP();
-    _otpExpiryTime = DateTime.now().add(Duration(minutes: 3));
+    _otpExpiryTime = DateTime.now().add(const Duration(minutes: 3));
 
     bool sent = await MailService.sendOTP(email, _generatedOTP);
 
@@ -82,7 +82,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_secondsRemaining > 0) {
         setState(() {
           _secondsRemaining--;
@@ -147,7 +147,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
       });
       _animationController.forward(from: 0.0);
       AppSnackBar.success(context, message: 'OTP Verified!');
-      Future.delayed(Duration(milliseconds: 1200), () {
+      Future.delayed(const Duration(milliseconds: 1200), () {
         Navigator.pushReplacementNamed(context, ContentsRouter.resetPassword);
       });
     } else {
@@ -178,12 +178,12 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(text: TextString.otpVerify),
+            const CustomAppBar(text: TextString.otpVerify),
             CustomHeaderAuth(
               text: TextString.emailVerify,
               subText: "${TextString.subEmailVerify} \n$email",
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ScaleTransition(
               scale:
                   _isCorrect
@@ -216,15 +216,15 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Timer and Resend OTP
             if (!_canResend)
               Padding(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 10),
                 child: Center(
                   child: Text(
                     'Resend OTP in ${_secondsRemaining}s',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 ),
               ),
@@ -234,7 +234,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
                 child: Center(
                   child: GestureDetector(
                     onTap: _resendOTP,
-                    child: Text(
+                    child: const Text(
                       'Resend OTP',
                       style: TextStyle(
                         fontSize: 16,

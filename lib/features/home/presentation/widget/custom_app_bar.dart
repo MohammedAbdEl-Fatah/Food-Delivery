@@ -22,7 +22,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         //todo::navagate to notification screen
         Navigator.pushNamed(context, ContentsRouter.notificationScreen);
       },
-      icon: Icon(Icons.notifications, color: ColorManager.white, size: 32),
+      icon: const Icon(Icons.notifications, color: ColorManager.white, size: 32),
     );
   }
 
@@ -38,7 +38,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   void _openCityPicker() async {
     final newCity = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => CitySelectionScreen()),
+      MaterialPageRoute(builder: (_) => const CitySelectionScreen()),
     );
 
     if (newCity != null && newCity is String) {
@@ -61,7 +61,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
           },
         ), //colum search
         //search
-        Spacer(),
+        const Spacer(),
 
         notificationAppBar(),
       ],

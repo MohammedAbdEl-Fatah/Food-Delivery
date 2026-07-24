@@ -50,7 +50,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      CustomHeaderAuth(
+                      const CustomHeaderAuth(
                         text: TextString.headerForgetPassword,
                         subText: TextString.headerSubForgetPassword,
                       ),
@@ -100,7 +100,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     if (!mounted) return;
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text(
                           'Email not found. Please check your email address.',
                         ),

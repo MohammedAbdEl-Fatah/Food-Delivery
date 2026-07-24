@@ -18,7 +18,7 @@ class LocationButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
                 Text(
                   'Your Location',
@@ -36,14 +36,14 @@ class LocationButton extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Row(
               children: [
-                Icon(Icons.location_on, color: Colors.white, size: 20),
-                SizedBox(width: 6),
+                const Icon(Icons.location_on, color: Colors.white, size: 20),
+                const SizedBox(width: 6),
                 Text(
                   city,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

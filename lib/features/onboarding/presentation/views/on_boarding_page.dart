@@ -84,7 +84,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     vertical: 18,
                   ),
                   decoration: BoxDecoration(
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         offset: Offset(5, 5),
                         blurRadius: 200,

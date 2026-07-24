@@ -13,7 +13,7 @@ class CustomButtonAuth extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 120, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 120, vertical: 16),
         decoration: BoxDecoration(
           color: ColorManager.primary,
           borderRadius: BorderRadius.circular(8),

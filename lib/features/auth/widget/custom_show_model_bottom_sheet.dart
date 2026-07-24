@@ -34,15 +34,15 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Forgot password?",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
-          Text(
+          const SizedBox(height: 8),
+          const Text(
             "Select which contact details should we use to reset your password",
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // WhatsApp Option
           GestureDetector(
@@ -52,7 +52,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               });
             },
             child: Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(
                   color:
@@ -64,16 +64,16 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.messenger, color: ColorManager.green),
-                  SizedBox(width: 10),
+                  const Icon(Icons.messenger, color: ColorManager.green),
+                  const SizedBox(width: 10),
                   Expanded(child: Text(widget.titlePhone ?? "No there phone")),
                   if (selectedOption == "whatsapp")
-                    Icon(Icons.check_circle, color: ColorManager.primary),
+                    const Icon(Icons.check_circle, color: ColorManager.primary),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
 
           // Email Option
           GestureDetector(
@@ -83,7 +83,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               });
             },
             child: Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(
                   color:
@@ -95,22 +95,22 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.email, color: ColorManager.blue),
-                  SizedBox(width: 10),
+                  const Icon(Icons.email, color: ColorManager.blue),
+                  const SizedBox(width: 10),
                   Expanded(child: Text(widget.titleEmail)),
                   if (selectedOption == "email")
-                    Icon(Icons.check_circle, color: ColorManager.primary),
+                    const Icon(Icons.check_circle, color: ColorManager.primary),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Continue Button
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorManager.primary,
-              minimumSize: Size(double.infinity, 50),
+              minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -130,7 +130,7 @@ class _ForgotPasswordBottomSheetState extends State<ForgotPasswordBottomSheet> {
                         : widget.titleEmail,
               );
             },
-            child: Text(
+            child: const Text(
               "Continue",
               style: TextStyle(color: ColorManager.white),
             ),

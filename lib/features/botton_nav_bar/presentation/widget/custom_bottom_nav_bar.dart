@@ -20,7 +20,7 @@ class CustomBottomNavBar extends StatelessWidget {
       notchMargin: 5,
       padding: EdgeInsets.zero,
       elevation: 0,
-      color: Color(0xfffcfcfc),
+      color: const Color(0xfffcfcfc),
       child: SizedBox(
         height: kBottomNavigationBarHeight,
         child: BottomNavigationBar(
@@ -30,7 +30,7 @@ class CustomBottomNavBar extends StatelessWidget {
           onTap: onTap,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: ColorManager.primary,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.houseChimney),
               label: 'Home',

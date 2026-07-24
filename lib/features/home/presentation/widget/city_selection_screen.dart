@@ -49,7 +49,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.close, color: ColorManager.primary),
+          icon: const Icon(Icons.close, color: ColorManager.primary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -71,8 +71,8 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Search city...',
-                hintStyle: TextStyle(color: ColorManager.white),
-                prefixIcon: Icon(Icons.search, color: ColorManager.white),
+                hintStyle: const TextStyle(color: ColorManager.white),
+                prefixIcon: const Icon(Icons.search, color: ColorManager.white),
                 filled: true,
                 fillColor: Colors.black.withAlpha(120),
                 border: OutlineInputBorder(
@@ -94,7 +94,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
               itemBuilder: (context, index) {
                 final city = filteredCities[index];
                 return Container(
-                  margin: EdgeInsets.all(2),
+                  margin: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     color: ColorManager.grey.withAlpha(50),
@@ -103,15 +103,15 @@ class _CitySelectionScreenState extends State<CitySelectionScreen> {
                     style: ListTileStyle.list,
                     selectedColor: Colors.black,
                     selected: true,
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.location_city,
                       color: ColorManager.primary,
                     ),
                     title: Text(
                       city,
-                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      style: const TextStyle(color: Colors.black, fontSize: 16),
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.black38,
                       size: 16,

@@ -17,13 +17,13 @@ class CustomTextRegister extends StatelessWidget {
           text: TextSpan(
             style: AppTextStyle.bodyLarge.copyWith(fontWeight: FontWeight.w500),
             children: [
-              TextSpan(
+              const TextSpan(
                 text: TextString.headerDoNotHaveAccount,
                 style: TextStyle(color: ColorManager.black),
               ),
               TextSpan(
                 text: TextString.register,
-                style: TextStyle(color: ColorManager.primary),
+                style: const TextStyle(color: ColorManager.primary),
                 recognizer:
                     TapGestureRecognizer()
                       ..onTap = () {

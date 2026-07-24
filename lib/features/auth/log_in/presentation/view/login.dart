@@ -124,13 +124,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomHeaderAuth(
+                    const CustomHeaderAuth(
                       text: TextString.headerLogin,
                       subText: TextString.headerSubLogin,
                     ),
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
                     header(TextString.headerEmail),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     CustomTextFormField(
                       controller: _emailEditingController,
                       focusNode: _emailFocusNode,
@@ -140,9 +140,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       validator: ValidationTextField.email(),
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     header(TextString.headerPassword),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     CustomTextFormField(
                       controller: _passwordEditingController,
                       focusNode: _passwordFocusNode,
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       validator: ValidationTextField.password(),
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     Align(
                       alignment: Alignment.center,
                       child: CustomButtonAuth(
@@ -182,12 +182,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: _signIn,
                       ),
                     ),
-                    SizedBox(height: 24),
-                    CustomDivider(),
-                    SizedBox(height: 24),
-                    CustomMethodSignIn(),
-                    SizedBox(height: 32),
-                    CustomTextRegister(),
+                    const SizedBox(height: 24),
+                    const CustomDivider(),
+                    const SizedBox(height: 24),
+                    const CustomMethodSignIn(),
+                    const SizedBox(height: 32),
+                    const CustomTextRegister(),
                     AppSize.applyPadding(height: 8),
                   ],
                 ),

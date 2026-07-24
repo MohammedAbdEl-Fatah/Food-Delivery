@@ -10,7 +10,7 @@ class CustomDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
+        const Expanded(
           child: Divider(color: ColorManager.grey, thickness: 1, endIndent: 8),
         ),
         Text(
@@ -20,7 +20,7 @@ class CustomDivider extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Expanded(
+        const Expanded(
           child: Divider(color: ColorManager.grey, thickness: 1, indent: 8),
         ),
       ],

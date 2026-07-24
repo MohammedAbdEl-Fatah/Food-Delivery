@@ -49,15 +49,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomAppBar(text: TextString.resetPassword),
+                        const CustomAppBar(text: TextString.resetPassword),
                         AppSize.applyPadding(height: 12),
-                        CustomHeaderAuth(
+                        const CustomHeaderAuth(
                           text: TextString.resetPassword,
                           subText: TextString.subResetPassword,
                         ),
                         AppSize.applyPadding(height: 4),
                         header(TextString.headerPassword),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         CustomTextFormField(
                           controller: _newPasswordController,
                           focusNode: _newPasswordFocusNode,
@@ -69,11 +69,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                               ).requestFocus(_confirmPasswordFocusNode),
                           validator: ValidationTextField.password(),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         header(TextString.passwordResetMessage),
                         AppSize.applyPadding(height: 4),
                         header(TextString.headerRegisterConfirmPassword),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         CustomTextFormField(
                           controller: _confirmPasswordController,
                           focusNode: _confirmPasswordFocusNode,
@@ -85,7 +85,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             _newPasswordController,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         header(TextString.confirmPasswordResetMessage),
                         AppSize.applyPadding(height: 16),
                       ],
@@ -100,7 +100,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         builder:
                             (context) => BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 1, sigmaY: 2),
-                              child: CustomShowBottomSheet(),
+                              child: const CustomShowBottomSheet(),
                             ),
                       );
                     }

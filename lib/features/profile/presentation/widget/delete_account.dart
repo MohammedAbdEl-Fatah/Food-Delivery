@@ -18,7 +18,7 @@ class DeleteAccount extends StatelessWidget {
           fontWeight: FontWeight.w700,
         ),
       ),
-      content: Text(
+      content: const Text(
         'Are you sure you want to delete your account?',
         style: AppTextStyle.bodyLarge,
       ),
