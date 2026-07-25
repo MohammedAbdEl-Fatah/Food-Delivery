@@ -1,18 +1,32 @@
 import 'package:food_delivery/core/service/firestore_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+part 'product_model.g.dart';
 
-class ProductEntity implements FirestoreModel {
+@HiveType(typeId: 0)
+class ProductEntity extends HiveObject implements FirestoreModel {
   @override
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final String title;
+  @HiveField(2)
   final String description;
+  @HiveField(3)
   final num price;
+  @HiveField(4)
   final String category;
+  @HiveField(5)
   final String? urlImage;
+  @HiveField(6)
   final num rating;
+  @HiveField(7)
   final List<dynamic> avgCookingTime;
+  @HiveField(8)
   final num avgRating;
   // final bool isFavorite;
+  @HiveField(9)
   final bool isDelivered;
+  @HiveField(10)
   final num priceDelivery;
 
   ProductEntity({
