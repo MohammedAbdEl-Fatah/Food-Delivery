@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery/features/layout/cubit/layout_cubit.dart';
 
 import '../../../../core/Colors/color_manager.dart';
 import '../../../../core/contents/images.dart';
 import '../../../../core/style/app_text_style.dart';
-import '../../../botton_nav_bar/presentation/cubit/change_page_cubit.dart';
 
 class CartEmptyView extends StatelessWidget {
   const CartEmptyView({super.key});
@@ -41,7 +41,7 @@ class CartEmptyView extends StatelessWidget {
           //serach button /=> back to home ^_^
           ElevatedButton(
             onPressed: () {
-              context.read<ChangePageCubit>().changePage(0);
+              context.read<LayoutCubit>().changeIndex(0);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorManager.primary,

@@ -161,7 +161,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  //todo give detials of category
   Widget _buildGridView(BuildContext context) {
     return BlocBuilder<ProductCubit, ProductStatus>(
       builder: (context, state) {

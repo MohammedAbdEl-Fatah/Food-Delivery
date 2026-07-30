@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 
 import '../../../core/Colors/color_manager.dart';
+import '../../../core/di/servier_locator.dart';
+import '../../profile/presentation/cubit/info_profile_cubit.dart';
 import '../cubit/layout_cubit.dart';
 
 class LayoutScreen extends StatelessWidget {
@@ -10,8 +12,11 @@ class LayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LayoutCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LayoutCubit()),
+        BlocProvider(create: (context) => sl<InfoProfileCubit>()..getProfile()),
+      ],
       child: BlocBuilder<LayoutCubit, LayoutState>(
         builder: (context, state) {
           final layoutCubit = context.read<LayoutCubit>();
@@ -44,8 +49,8 @@ class LayoutScreen extends StatelessWidget {
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite_border_sharp),
-                    label: 'Favorites',
+                    icon: Icon(Icons.card_travel_rounded),
+                    label: 'cart',
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.person_2_outlined),

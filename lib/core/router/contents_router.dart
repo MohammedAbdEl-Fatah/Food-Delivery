@@ -1,6 +1,6 @@
 class ContentsRouter {
   static const String onBoarding = "/onBoarding";
-  static const String main = "/main";
+  static const String layout = "/main";
   static const String login = "/login";
   static const String register = "/register";
   static const String forgetPassword = "/forgetPassword";
