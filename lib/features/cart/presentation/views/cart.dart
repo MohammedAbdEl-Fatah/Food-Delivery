@@ -8,6 +8,7 @@ import '../widget/cart_is_not_empty.dart';
 import '../widget/info_location.dart';
 import '../widget/promo_code_field.dart';
 import '../widget/result_cart.dart';
+import '../widget/order_button.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -56,6 +57,8 @@ class CartPage extends StatelessWidget {
                     ),
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.008),
                     const ResultCart(),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+                    const OrderButton(),
                   ],
                 ),
               );
