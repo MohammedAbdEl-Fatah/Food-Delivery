@@ -7,8 +7,8 @@ import 'package:food_delivery/core/di/servier_locator.dart';
 import 'package:food_delivery/core/router/contents_router.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 import 'package:food_delivery/core/widget/loading.dart';
-import 'package:food_delivery/features/home/presentation/cubit/product/product.cubit.dart';
-import 'package:food_delivery/features/home/presentation/cubit/product/product.status.dart';
+import 'package:food_delivery/features/home/presentation/cubit/product/product_cubit.dart';
+import 'package:food_delivery/features/home/presentation/cubit/product/product_status.dart';
 import 'package:food_delivery/features/home/presentation/widget/food_delivery_app_bar.dart';
 
 import '../../domain/entity/entity_category.dart';

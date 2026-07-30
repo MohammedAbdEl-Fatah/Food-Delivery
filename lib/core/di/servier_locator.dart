@@ -17,7 +17,7 @@ import 'package:food_delivery/features/home/data/repository/products_repository_
 import 'package:food_delivery/features/home/domain/repository/products_repostiry.dart';
 import 'package:food_delivery/features/home/domain/usecase/get_all_product.dart';
 import 'package:food_delivery/features/home/domain/usecase/get_product_by_category.dart';
-import 'package:food_delivery/features/home/presentation/cubit/product/product.cubit.dart';
+import 'package:food_delivery/features/home/presentation/cubit/product/product_cubit.dart';
 
 import '../../features/profile/domain/use_case/get_profile_info.dart';
 import '../../features/profile/domain/use_case/get_user_by_email.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery/core/Colors/color_manager.dart';
-import 'package:food_delivery/features/home/presentation/cubit/product/product.cubit.dart';
+import 'package:food_delivery/features/home/presentation/cubit/product/product_cubit.dart';
 import 'package:food_delivery/features/home/presentation/widget/custom_grid_view_builder.dart';
 
 import '../../../../core/style/app_text_style.dart';
 import '../../../../core/widget/loading.dart';
-import '../cubit/product/product.status.dart';
+import '../cubit/product/product_status.dart';
 
 class AllProductView extends StatefulWidget {
   const AllProductView({super.key});

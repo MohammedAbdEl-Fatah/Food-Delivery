@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:food_delivery/core/model/product_model.dart';
-import 'package:food_delivery/features/home/presentation/cubit/product/product.status.dart';
+import 'package:food_delivery/features/home/presentation/cubit/product/product_status.dart';
 
 import '../../../../../core/utils/error/failures.dart';
 import '../../../domain/usecase/get_all_product.dart';
@@ -46,6 +48,7 @@ class ProductCubit extends Cubit<ProductStatus> {
       emit(ProductLoading());
       await _loadProducts(() => _getProductByCategory(category));
     } catch (e) {
+      log("Error in getProductsByCategory: $e");
       emit(ProductError(message: e.toString()));
     }
   }
