@@ -4,6 +4,8 @@ import 'package:food_delivery/features/cart/presentation/views/cart.dart';
 import 'package:food_delivery/features/home/presentation/view/home_page.dart';
 import 'package:food_delivery/features/profile/presentation/views/profile_page.dart';
 
+import '../../favorite/presentation/view/favorite_screen.dart';
+
 // import '../../../favorite/presentation/view/favortire_screen.dart';
 
 part 'layout_state.dart';
@@ -14,6 +16,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   int currentIndex = 0;
   List<Widget> screen = const [
     HomePage(),
+    FavoriteScreen(),
     CartPage(),
     ProfilePage(),
     // FavortireScreen(),

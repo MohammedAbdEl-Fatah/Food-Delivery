@@ -49,6 +49,10 @@ class LayoutScreen extends StatelessWidget {
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite_outline_sharp),
+                    label: 'Favorite',
+                  ),
+                  BottomNavigationBarItem(
                     icon: Icon(Icons.card_travel_rounded),
                     label: 'cart',
                   ),
