@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery/core/model/product_model.dart';
 
 part 'favorite_state.dart';
 
@@ -6,8 +9,9 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(AddFavorite(items: []));
 
   // Add a product to the favorites list
-  void addFavorite(dynamic product) {
-    final updatedItems = List.from(state.items);
+  void addFavorite(ProductEntity product) {
+    log('Adding product to favorites: ${product.title}');
+    List<ProductEntity> updatedItems = List.from(state.items);
 
     if (!updatedItems.contains(product)) {
       updatedItems.add(product);
@@ -16,9 +20,10 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   // Remove a product from the favorites list
-  void removeFavorite(dynamic product) {
-    if(!state.items.contains(product)) return;
-    final updatedItems = List.from(state.items)..remove(product);
+  void removeFavorite(ProductEntity product) {
+    log('Removing product from favorites: ${product.title}');
+    if (!state.items.contains(product)) return;
+    List<ProductEntity> updatedItems = List.from(state.items)..remove(product);
     emit(RemoveFavorite(items: updatedItems));
   }
 }

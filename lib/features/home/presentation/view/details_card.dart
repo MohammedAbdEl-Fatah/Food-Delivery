@@ -10,6 +10,7 @@ import 'package:food_delivery/features/home/presentation/cubit/price/price.cubit
 import 'package:food_delivery/features/home/presentation/widget/botton_bar_detail_card.dart';
 
 import '../../../../core/widget/loading.dart';
+import '../../../favorite/presentation/cubit/favorite_cubit.dart';
 
 class DetailsCard extends StatefulWidget {
   const DetailsCard({super.key});
@@ -19,7 +20,7 @@ class DetailsCard extends StatefulWidget {
 }
 
 class _DetailsCardState extends State<DetailsCard> {
-  bool islove = false;
+  bool isLove = false;
   @override
   Widget build(BuildContext context) {
     final ProductEntity product =
@@ -43,13 +44,17 @@ class _DetailsCardState extends State<DetailsCard> {
                   padding: const EdgeInsets.only(right: 12),
                   child: GestureDetector(
                     onTap: () {
-                      //make it red or white
-                      islove = !islove;
+                      isLove = !isLove;
+                      isLove
+                          ? context.read<FavoriteCubit>().addFavorite(product)
+                          : context.read<FavoriteCubit>().removeFavorite(
+                            product,
+                          );
                       setState(() {});
                     },
                     child: Icon(
                       FontAwesomeIcons.solidHeart,
-                      color: islove ? ColorManager.error : ColorManager.white,
+                      color: isLove ? ColorManager.error : ColorManager.white,
                     ),
                   ),
                 ),

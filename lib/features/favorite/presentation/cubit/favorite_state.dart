@@ -1,7 +1,7 @@
 
 part of 'favorite_cubit.dart';
 sealed class FavoriteState {
-  List items;
+  List<ProductEntity> items;
   FavoriteState({required this.items});
 }
 

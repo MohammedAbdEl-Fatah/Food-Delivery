@@ -23,7 +23,7 @@ class CustomGridItem extends StatelessWidget {
         spacing: MediaQuery.sizeOf(context).height * 0.005,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FoodItemImage(imagePath: product.urlImage ?? ""),
+          FoodItemImage(product: product),
           _buildTitle(),
 
           Padding(
