@@ -11,9 +11,15 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   // Add a product to the favorites list
   void addFavorite(ProductEntity product) {
     log('Adding product to favorites: ${product.title}');
-    List<ProductEntity> updatedItems = List.from(state.items);
 
-    if (!updatedItems.contains(product)) {
+    final updatedItems = List<ProductEntity>.from(state.items);
+
+    final exists = updatedItems.any((item) {
+      log('Checking if product exists: ${item.title} == ${product.title}');
+      return item.title == product.title;
+    });
+
+    if (!exists) {
       updatedItems.add(product);
       emit(AddFavorite(items: updatedItems));
     }

@@ -8,7 +8,6 @@ import '../widget/empty_favorite_widget.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
-  //TODO give name prduct and image and price and add to cart button
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +15,7 @@ class FavoriteScreen extends StatelessWidget {
         builder: (context, state) {
           log(context.read<FavoriteCubit>().state.items.length.toString());
           if (state.items.isNotEmpty) {
+            //TODO : Implement the UI for displaying favorite items
             return ListView.builder(
               itemCount: state.items.length,
               itemBuilder: (context, index) {
