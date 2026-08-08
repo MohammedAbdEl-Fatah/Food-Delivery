@@ -13,6 +13,8 @@ import '../../features/home/presentation/view/home_page.dart';
 import '../../features/layout/presentation/layout.dart';
 import '../../features/notification/presentation/view/notification_screen.dart';
 import '../../features/onboarding/presentation/views/on_boarding_page.dart';
+import '../../features/payment/presentation/view/cash_on_delivery_screen.dart';
+import '../../features/payment/presentation/view/credit_card_screen.dart';
 import '../../features/profile/presentation/views/edit_profile.dart';
 
 class NavigatorRoute {
@@ -82,6 +84,17 @@ class NavigatorRoute {
       case ContentsRouter.notificationScreen:
         return MaterialPageRoute(
           builder: (_) => const NotificationScreen(),
+          settings: settings,
+        );
+
+      case ContentsRouter.creditCardScreen:
+        return MaterialPageRoute(
+          builder: (_) => const CreditCardScreen(),
+          settings: settings,
+        );
+      case ContentsRouter.cashOnDeliveryScreen:
+        return MaterialPageRoute(
+          builder: (_) => const CashOnDeliveryScreen(),
           settings: settings,
         );
     }

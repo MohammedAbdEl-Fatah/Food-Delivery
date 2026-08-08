@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/core/Colors/color_manager.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 
+import '../../../payment/presentation/widget/method_payment.dart';
+
 class OrderButton extends StatelessWidget {
   const OrderButton({super.key});
 
@@ -9,7 +11,18 @@ class OrderButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        //navigtaion to screen order or waitting delivery and payment catch
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => const MethodPayment(),
+          backgroundColor: ColorManager.white,
+          barrierColor: Colors.black.withAlpha(
+            (255 * 0.5).toInt(),
+          ), // Adjust the alpha value for transparency
+          elevation: 3,
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.35,
+          ),
+        );
       },
       clipBehavior: Clip.antiAlias,
       style: ElevatedButton.styleFrom(

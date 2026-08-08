@@ -17,5 +17,6 @@ class ContentsRouter {
   static const String editProfilePage = "/edit_profile_page";
   static const String settingProfilePage = "/setting_profile_page";
   static const String extraCardProfilePage = "/extra_card_profile_page";
-  // static
+  static const String creditCardScreen = "/credit_card_screen";
+  static const String cashOnDeliveryScreen = "/cash_on_delivery_screen";
 }
