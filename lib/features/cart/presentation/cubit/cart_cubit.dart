@@ -80,4 +80,11 @@ class CartCubit extends Cubit<CartState> {
       );
     }
   }
+
+void clearCart() {
+    _items.clear();
+    _itemTotals.clear();
+    _discountPercent = 0;
+    emit(CartEmpty());
+  }
 }

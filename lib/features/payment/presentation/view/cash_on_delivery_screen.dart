@@ -1,11 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
 import 'package:food_delivery/core/style/app_size.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 
 import '../../../../core/contents/images.dart';
+import '../../../cart/presentation/cubit/cart_cubit.dart';
 
 class CashOnDeliveryScreen extends StatelessWidget {
   const CashOnDeliveryScreen({super.key});
@@ -158,6 +158,9 @@ class CashOnDeliveryScreen extends StatelessWidget {
           //Button back to home
           ElevatedButton(
             onPressed: () {
+              context
+                  .read<CartCubit>()
+                  .clearCart(); // Clear the cart when navigating back to home
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
