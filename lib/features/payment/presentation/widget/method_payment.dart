@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 
@@ -5,10 +7,15 @@ import '../../../../core/Colors/color_manager.dart';
 import '../../../../core/router/contents_router.dart';
 
 class MethodPayment extends StatelessWidget {
-  const MethodPayment({super.key});
+  const MethodPayment({super.key, required this.price});
+  final String price;
 
   @override
   Widget build(BuildContext context) {
+    log(
+      "Price from CashOnDeliveryScreen: $price",
+      name: 'CashOnDeliveryScreen',
+    );
     return Column(
       children: [
         ListTile(
@@ -22,14 +29,15 @@ class MethodPayment extends StatelessWidget {
             style: AppTextStyle.header6.copyWith(fontWeight: FontWeight.w700),
           ),
           onTap: () {
-            //TODO
-            // Navigator.pop(context);
-           Navigator.pushNamed(context, ContentsRouter.creditCardScreen);
+            Navigator.popAndPushNamed(
+              context,
+              ContentsRouter.creditCardScreen,
+              arguments: price,
+            );
           },
         ),
         const Divider(),
         ListTile(
-          
           leading: const Icon(
             Icons.payments_outlined,
             size: 30,
@@ -40,9 +48,11 @@ class MethodPayment extends StatelessWidget {
             style: AppTextStyle.header6.copyWith(fontWeight: FontWeight.w700),
           ),
           onTap: () {
-            //TODO
-            // Navigator.pop(context);  
-           Navigator.pushNamed(context, ContentsRouter.cashOnDeliveryScreen);
+            Navigator.popAndPushNamed(
+              context,
+              ContentsRouter.cashOnDeliveryScreen,
+              arguments: price,
+            );
           },
         ),
       ],

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
 import 'package:food_delivery/core/style/app_size.dart';
@@ -7,9 +9,11 @@ import '../../../../core/contents/images.dart';
 
 class CashOnDeliveryScreen extends StatelessWidget {
   const CashOnDeliveryScreen({super.key});
+
   static DateTime dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    final String price = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,7 +38,7 @@ class CashOnDeliveryScreen extends StatelessWidget {
               text: "Your Payment of ",
               children: [
                 TextSpan(
-                  text: "\$120",
+                  text: "\$$price",
                   style: AppTextStyle.header6.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.green,

@@ -17,7 +17,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsetsGeometry.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 12,
         ),
@@ -26,6 +26,7 @@ class CartPage extends StatelessWidget {
             if (state is CartEmpty) {
               return const CartEmptyView();
             } else if (state is CartIsNotEmpty) {
+              final totalPrice = state.items.fold<int>(0, (sum, item) => sum + item.price.toInt());
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -58,7 +59,7 @@ class CartPage extends StatelessWidget {
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.008),
                     const ResultCart(),
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
-                    const OrderButton(),
+                    OrderButton(price: totalPrice.toString()),
                   ],
                 ),
               );
