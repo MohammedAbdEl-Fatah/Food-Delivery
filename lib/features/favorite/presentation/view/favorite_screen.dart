@@ -17,8 +17,6 @@ class FavoriteScreen extends StatelessWidget {
         builder: (context, state) {
           log(context.read<FavoriteCubit>().state.items.length.toString());
           if (state.items.isNotEmpty) {
-            //TODO : Implement the UI for displaying favorite items
-
             return GridView.builder(
               itemCount: state.items.length,
               itemBuilder: (context, index) {
