@@ -17,3 +17,9 @@ class ImageResources {
   static const String taco = "assets/images/taco.png";
   static const String emptyCart = "assets/images/searchCart.png";
 }
+
+class AnimationResources {
+  static const String maleAvater = "assets/animation/male_avatar.gif";
+  static const String femaleAvatar = "assets/animation/female_avatar.gif";
+
+}
