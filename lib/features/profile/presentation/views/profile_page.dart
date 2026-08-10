@@ -8,7 +8,6 @@ import 'package:food_delivery/core/router/contents_router.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
 import 'package:food_delivery/features/profile/data/sources/profile_static_data.dart';
 import 'package:food_delivery/features/profile/presentation/cubit/info_profile_cubit.dart';
-import 'package:food_delivery/features/profile/presentation/widget/delete_account.dart';
 
 import '../widget/log_out_button.dart';
 import '../widget/profile_profile_and_info.dart';
@@ -63,16 +62,16 @@ class ProfilePage extends StatelessWidget {
                         }
                         break;
                       case 1:
-                        Navigator.pushNamed(context, '/address_page');
                         break;
                       case 2:
-                        Navigator.pushNamed(context, '/payment_page');
                         break;
                       default:
                     }
                   },
                 ),
               ),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
+              const Divider(),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
               Align(
                 alignment: AlignmentGeometry.centerLeft,
@@ -93,19 +92,11 @@ class ProfilePage extends StatelessWidget {
                     log(index.toString());
                     switch (index) {
                       case 0:
-                        // TODO: Handle this case.
                         break;
                       case 1:
-                        // delete account
-                        log('delete');
-                        showDialog(
-                          context: context,
-                          builder: (_) => const DeleteAccount(),
-                        );
                         break;
                       case 2:
                         break;
-
                       default:
                     }
                   },
@@ -116,16 +107,6 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _appBar() {
-    return Align(
-      alignment: AlignmentGeometry.bottomCenter,
-      child: Text(
-        "Profile",
-        style: AppTextStyle.header6.copyWith(fontWeight: FontWeight.w600),
       ),
     );
   }
