@@ -23,17 +23,8 @@ class PhotoProfileAndInfo extends StatelessWidget {
               CircleAvatar(
                 maxRadius: MediaQuery.sizeOf(context).aspectRatio * 50 * 3,
                 minRadius: MediaQuery.sizeOf(context).aspectRatio * 50 * 1,
-                // radius: 50,
                 //todo connect image by device or give for firebase if not null
                 backgroundImage:const AssetImage(ImageResources.drink),
-
-                // child: Text(
-                //   "M",
-                //   style: AppTextStyle.header4.copyWith(
-                //     fontWeight: FontWeight.bold,
-                //     color: ColorManager.black,
-                //   ),
-                // ),
               ),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.005),
               Text(

@@ -25,7 +25,6 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 18),
           child: Column(
             children: [
-              _appBar(),
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
               // todo stack ::::::::image edit photo
               const PhotoProfileAndInfo(),
@@ -42,7 +41,7 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.005),
               ...List.generate(
                 ProfileStaticData.listProfile.length,
-                (index) => _profile(
+                (index) => _buildItems(
                   title: ProfileStaticData.listProfile[index].title,
                   icon: ProfileStaticData.listProfile[index].icon,
                   ontap: () async {
@@ -87,7 +86,7 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.005),
               ...List.generate(
                 ProfileStaticData.listSupport.length,
-                (index) => _profile(
+                (index) => _buildItems(
                   title: ProfileStaticData.listSupport[index].title,
                   icon: ProfileStaticData.listSupport[index].icon,
                   ontap: () {
@@ -125,13 +124,13 @@ class ProfilePage extends StatelessWidget {
     return Align(
       alignment: AlignmentGeometry.bottomCenter,
       child: Text(
-        "Profile Settings",
+        "Profile",
         style: AppTextStyle.header6.copyWith(fontWeight: FontWeight.w600),
       ),
     );
   }
 
-  Widget _profile({
+  Widget _buildItems({
     required String title,
     required IconData icon,
     VoidCallback? ontap,
