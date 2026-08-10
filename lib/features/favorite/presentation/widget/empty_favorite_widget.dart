@@ -14,14 +14,14 @@ class EmptyFavoriteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(height: MediaQuery.of(context).size.height * 0.1),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.2,
           ),
           child: Icon(
-            Icons.no_food_outlined,
+            Icons.no_food,
             size: MediaQuery.of(context).size.width * 0.55,
             color: ColorManager.primary,
           ),
@@ -41,7 +41,7 @@ class EmptyFavoriteWidget extends StatelessWidget {
             color: ColorManager.grey,
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.025),
         ElevatedButton(
           onPressed: () {
             context.read<LayoutCubit>().changeIndex(0);
