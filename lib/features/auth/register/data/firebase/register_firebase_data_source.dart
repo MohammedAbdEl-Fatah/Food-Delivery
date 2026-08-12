@@ -42,6 +42,7 @@ class FirebaseRegisterDataSource {
         'age': age,
         'createdAt': FieldValue.serverTimestamp(),
         'confrimEmail': false,
+        'provider': 'email',
       });
 
       PendingRegistrationSession.save(

@@ -13,7 +13,6 @@ import 'package:food_delivery/features/auth/widget/custom_button_auth.dart';
 import 'package:food_delivery/features/auth/widget/custom_header_auth.dart';
 import 'package:food_delivery/features/auth/widget/otp_digit_field.dart';
 
-import '../../../../core/router/contents_router.dart';
 import '../../../../core/widget/show_snack_bar.dart';
 
 class OtpView extends StatefulWidget {
@@ -48,12 +47,6 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
   OtpVerificationArgs _parseArgs(Object? arguments) {
     if (arguments is OtpVerificationArgs) {
       return arguments;
-    }
-    if (arguments is String) {
-      return OtpVerificationArgs(
-        contact: arguments,
-        flow: OtpFlow.resetPassword,
-      );
     }
     throw ArgumentError('Invalid OTP route arguments');
   }
@@ -199,10 +192,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
               message: 'Failed to confirm email. Please try again.',
             );
           }
-          return;
         }
-
-        Navigator.pushReplacementNamed(context, ContentsRouter.resetPassword);
       });
     } else {
       setState(() {

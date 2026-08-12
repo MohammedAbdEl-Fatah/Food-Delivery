@@ -19,7 +19,7 @@ abstract class TextString {
   static const String headerRegisterUserName = "Name";
   static const String headerForgetPassword = "Forget Password";
   static const String headerSubForgetPassword =
-      "Enter your email address and we’ll send you confirmation code to reset your password";
+      "Enter your email address and we'll send you a link to reset your password";
   static const String headerDoNotHaveAccount = "Don't have an account ? ";
   static const String register = "Register";
   static const String headerRegister = "Create your new\naccount";
@@ -34,6 +34,10 @@ abstract class TextString {
   static const String changePassword = "Password Changed";
   static const String subChangePassword =
       "Password changed successfully, you can login again with a new password";
+  static const String resetEmailSent = "Reset Email Sent";
+  static const String subResetEmailSent =
+      "We sent a password reset link to your email. Please check your inbox, spam, and promotions folders. It may take a few minutes to arrive.";
+  static const String backToLogin = "Back to Login";
 
 
 }

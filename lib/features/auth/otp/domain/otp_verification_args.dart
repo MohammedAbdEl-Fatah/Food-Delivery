@@ -1,4 +1,4 @@
-enum OtpFlow { register, resetPassword }
+enum OtpFlow { register }
 
 class OtpVerificationArgs {
   final String contact;
