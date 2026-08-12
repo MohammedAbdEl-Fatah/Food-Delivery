@@ -8,7 +8,7 @@ import 'package:food_delivery/features/auth/widget/custom_button_auth.dart';
 import 'package:food_delivery/features/auth/widget/custom_divider.dart';
 import 'package:food_delivery/features/auth/widget/custom_header_auth.dart';
 import 'package:food_delivery/features/auth/widget/custom_method_sign_in.dart';
-import 'package:food_delivery/features/auth/widget/custom_test_form_filed.dart';
+import 'package:food_delivery/features/auth/widget/custom_text_form_filed.dart';
 import 'package:food_delivery/features/auth/widget/custom_text_login.dart';
 import 'package:food_delivery/features/auth/widget/header.dart';
 import '../../../../../core/contents/enum.dart';

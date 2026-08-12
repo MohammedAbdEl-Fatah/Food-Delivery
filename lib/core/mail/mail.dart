@@ -32,11 +32,8 @@ class MailService {
 
       await send(message, smtpServer);
       return true;
+    // ignore: unused_catch_clause
     } on MailerException catch (e) {
-      print('Failed to send OTP: ');
-      for (var p in e.problems) {
-        print('Problem: ${p.code}: ${p.msg}');
-      }
       return false;
     }
   }

@@ -9,5 +9,4 @@ abstract class LogInRepository {
     String password,
   );
   Future<Either<Failure, UserGoogle>> logInGoogle();
-  //TODO Future<Either<Failure, LogInEntity>> logInFaceBook();
 }

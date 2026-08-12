@@ -43,11 +43,8 @@ class ProfileDetailsSection extends StatelessWidget {
         }
 
         final user = state.userModel;
-        final missingCount = [
-          user.phone,
-          user.birthday,
-          user.gender,
-        ].where(_isEmpty).length;
+        final missingCount =
+            [user.phone, user.birthday, user.gender].where(_isEmpty).length;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +105,11 @@ class _CompleteProfileBanner extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           child: Row(
             children: [
-              Icon(Icons.info_outline, color: ColorManager.primary, size: 20),
+              const Icon(
+                Icons.info_outline,
+                color: ColorManager.primary,
+                size: 20,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -121,7 +122,7 @@ class _CompleteProfileBanner extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_forward_ios,
                 size: 14,
                 color: ColorManager.primary,
@@ -182,7 +183,8 @@ class _DetailTile extends StatelessWidget {
                           _hasValue
                               ? ColorManager.black
                               : ColorManager.grey.withValues(alpha: 0.85),
-                      fontStyle: _hasValue ? FontStyle.normal : FontStyle.italic,
+                      fontStyle:
+                          _hasValue ? FontStyle.normal : FontStyle.italic,
                       fontWeight: _hasValue ? FontWeight.w600 : FontWeight.w400,
                     ),
                   ),

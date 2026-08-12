@@ -1,24 +1,22 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery/core/Colors/color_manager.dart';
 import 'package:food_delivery/core/contents/text_string.dart';
-import 'package:food_delivery/core/utils/helper/validation_text_field.dart';
 import 'package:food_delivery/core/router/contents_router.dart';
 import 'package:food_delivery/core/style/app_size.dart';
 import 'package:food_delivery/core/style/app_text_style.dart';
+import 'package:food_delivery/core/utils/helper/validation_text_field.dart';
 import 'package:food_delivery/core/widget/loading.dart';
 import 'package:food_delivery/features/auth/widget/custom_button_auth.dart';
 import 'package:food_delivery/features/auth/widget/custom_divider.dart';
 import 'package:food_delivery/features/auth/widget/custom_header_auth.dart';
 import 'package:food_delivery/features/auth/widget/custom_method_sign_in.dart';
-import 'package:food_delivery/features/auth/widget/header.dart';
 import 'package:food_delivery/features/auth/widget/custom_text_register.dart';
+import 'package:food_delivery/features/auth/widget/header.dart';
 
 import '../../../../../core/widget/show_snack_bar.dart';
+import '../../../widget/custom_text_form_filed.dart';
 import '../cubit/login/login_cubit.dart';
-import '../../../widget/custom_test_form_filed.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
