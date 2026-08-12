@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/core/widget/loading.dart';
@@ -18,13 +19,34 @@ class Auth extends StatelessWidget {
           return const Material(child: Center(child: Loading()));
         } else if (snapshot.hasError) {
           return Center(child: Text('Something went wrong: ${snapshot.error}'));
-        } else {
-          if (snapshot.data?.uid != null) {
-            return const LayoutScreen();
-          } else {
-            return const LoginScreen();
-          }
         }
+
+        final user = snapshot.data;
+        if (user == null) {
+          return const LoginScreen();
+        }
+
+        return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+          stream:
+              FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(user.uid)
+                  .snapshots(),
+          builder: (context, userSnapshot) {
+            if (userSnapshot.connectionState == ConnectionState.waiting) {
+              return const Material(child: Center(child: Loading()));
+            }
+
+            final isEmailConfirmed =
+                userSnapshot.data?.data()?['confrimEmail'] == true;
+
+            if (isEmailConfirmed) {
+              return const LayoutScreen();
+            }
+
+            return const LoginScreen();
+          },
+        );
       },
     );
   }

@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_delivery/core/utils/error/failures.dart';
 import 'package:food_delivery/features/auth/register/domain/entity/register_entity.dart';
 
+import 'pending_registration_session.dart';
+
 class FirebaseRegisterDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -42,9 +44,11 @@ class FirebaseRegisterDataSource {
         'confrimEmail': false,
       });
 
-      // createUserWithEmailAndPassword signs the user in automatically.
-      // Sign out so they must log in manually after registration.
-      await _auth.signOut();
+      PendingRegistrationSession.save(
+        userId: user.uid,
+        email: email,
+        password: password,
+      );
 
       return Right(
         RegisterEntity(
@@ -64,6 +68,31 @@ class FirebaseRegisterDataSource {
     } catch (e) {
       return Left(FirebaseFailure(e.toString()));
     }
+  }
+
+  Future<void> confirmEmail() async {
+    User? user = _auth.currentUser;
+
+    if (user == null && PendingRegistrationSession.hasSession) {
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: PendingRegistrationSession.email!,
+        password: PendingRegistrationSession.password!,
+      );
+      user = credential.user;
+    }
+
+    if (user == null) {
+      throw FirebaseException(
+        plugin: 'firebase_auth',
+        code: 'user-not-signed-in',
+        message: 'Session expired. Please register again.',
+      );
+    }
+
+    await _firestore.collection('users').doc(user.uid).set(
+      {'confrimEmail': true},
+      SetOptions(merge: true),
+    );
   }
 }
 

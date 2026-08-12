@@ -39,6 +39,20 @@ class FirebaseLogInRepository extends LogInRepository {
       if (user == null) {
         return Left(ServerFailure('User not found after sign-in.'));
       }
+
+      final userDoc =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
+      final isEmailConfirmed = userDoc.data()?['confrimEmail'] as bool? ?? false;
+      if (!isEmailConfirmed) {
+        await _auth.signOut();
+        return Left(
+          FirebaseFailure('Please verify your email before logging in.'),
+        );
+      }
+
       await user.reload();
       AppPreferences.instance.setString(
         key: SharedPreferenceKey.userId,

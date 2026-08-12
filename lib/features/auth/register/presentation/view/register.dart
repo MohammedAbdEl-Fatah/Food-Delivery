@@ -12,7 +12,9 @@ import 'package:food_delivery/features/auth/widget/custom_test_form_filed.dart';
 import 'package:food_delivery/features/auth/widget/custom_text_login.dart';
 import 'package:food_delivery/features/auth/widget/header.dart';
 import '../../../../../core/contents/enum.dart';
+import '../../../../../core/router/contents_router.dart';
 import '../../../../../core/style/app_text_style.dart';
+import '../../../otp/domain/otp_verification_args.dart';
 import '../cubit/register_cubit.dart';
 
 class Register extends StatefulWidget {
@@ -44,14 +46,15 @@ class _RegisterState extends State<Register> {
                   if (Navigator.canPop(context)) {
                     Navigator.pop(context); // Close loading dialog if open
                   }
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Account created successfully! Please log in.',
-                      ),
+                  Navigator.pushReplacementNamed(
+                    context,
+                    ContentsRouter.otpView,
+                    arguments: OtpVerificationArgs(
+                      contact: state.user.email,
+                      flow: OtpFlow.register,
+                      userId: state.user.id,
                     ),
                   );
-                  Navigator.of(context).pop();
                 } else if (state is RegisterFailure) {
                   if (Navigator.canPop(context)) {
                     Navigator.pop(context); // Close loading dialog if open

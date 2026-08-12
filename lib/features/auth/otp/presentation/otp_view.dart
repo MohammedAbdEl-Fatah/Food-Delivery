@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_delivery/core/contents/text_string.dart';
 import 'package:food_delivery/core/mail/mail.dart';
 import 'package:food_delivery/core/utils/otp_generator.dart';
+import 'package:food_delivery/features/auth/otp/domain/otp_verification_args.dart';
+import 'package:food_delivery/features/auth/register/data/firebase/register_firebase_data_source.dart';
+import 'package:food_delivery/features/auth/register/data/firebase/pending_registration_session.dart';
 import 'package:food_delivery/features/auth/widget/custom_app_bar.dart';
 import 'package:food_delivery/features/auth/widget/custom_button_auth.dart';
 import 'package:food_delivery/features/auth/widget/custom_header_auth.dart';
@@ -39,6 +43,20 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
   int _secondsRemaining = 60;
   bool _canResend = false;
   late Timer _timer;
+  late OtpVerificationArgs _args;
+
+  OtpVerificationArgs _parseArgs(Object? arguments) {
+    if (arguments is OtpVerificationArgs) {
+      return arguments;
+    }
+    if (arguments is String) {
+      return OtpVerificationArgs(
+        contact: arguments,
+        flow: OtpFlow.resetPassword,
+      );
+    }
+    throw ArgumentError('Invalid OTP route arguments');
+  }
 
   @override
   void initState() {
@@ -58,6 +76,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _args = _parseArgs(ModalRoute.of(context)?.settings.arguments);
       _generateAndSendOTP();
     });
     // Start timer
@@ -65,7 +84,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
   }
 
   Future<void> _generateAndSendOTP() async {
-    final String email = ModalRoute.of(context)!.settings.arguments as String;
+    final String email = _args.contact;
     _generatedOTP = OTPGenerator.generateOTP();
     _otpExpiryTime = DateTime.now().add(const Duration(minutes: 3));
 
@@ -121,6 +140,13 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  final FirebaseRegisterDataSource _registerDataSource =
+      FirebaseRegisterDataSource();
+
+  Future<void> _confirmRegisterEmail() async {
+    await _registerDataSource.confirmEmail();
+  }
+
   void _verifyOTP() {
     _otpCode = _controllers.map((c) => c.text).join();
 
@@ -130,7 +156,6 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
         _isExpired = true;
         _isError = true;
       });
-      //TODO test line
       HapticFeedback.vibrate();
       AppSnackBar.error(
         context,
@@ -147,7 +172,36 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
       });
       _animationController.forward(from: 0.0);
       AppSnackBar.success(context, message: 'OTP Verified!');
-      Future.delayed(const Duration(milliseconds: 1200), () {
+      Future.delayed(const Duration(milliseconds: 1200), () async {
+        if (!mounted) return;
+
+        if (_args.flow == OtpFlow.register) {
+          try {
+            await _confirmRegisterEmail();
+            PendingRegistrationSession.clear();
+            await FirebaseAuth.instance.signOut();
+            if (!mounted) return;
+            AppSnackBar.success(
+              context,
+              message: 'Email verified! You can now log in.',
+            );
+            Navigator.pop(context);
+          } on FirebaseException catch (e) {
+            if (!mounted) return;
+            AppSnackBar.error(
+              context,
+              message: e.message ?? 'Failed to confirm email. Please try again.',
+            );
+          } catch (_) {
+            if (!mounted) return;
+            AppSnackBar.error(
+              context,
+              message: 'Failed to confirm email. Please try again.',
+            );
+          }
+          return;
+        }
+
         Navigator.pushReplacementNamed(context, ContentsRouter.resetPassword);
       });
     } else {
@@ -164,7 +218,8 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final String email = ModalRoute.of(context)!.settings.arguments as String;
+    final args = _parseArgs(ModalRoute.of(context)?.settings.arguments);
+    final String email = args.contact;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double fieldWidth = screenWidth * 0.12;
     final double paddingHorizontal = screenWidth * 0.03;
