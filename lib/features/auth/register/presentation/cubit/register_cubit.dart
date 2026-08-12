@@ -12,11 +12,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   final RegisterUserUseCase _useCase;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final FocusNode nameFocusNode = FocusNode();
   final FocusNode emailFocusNode = FocusNode();
+  final FocusNode phoneFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final FocusNode confirmPasswordFocusNode = FocusNode();
   DateTime? birthday;
@@ -46,6 +48,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         name: nameController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
+        phone: phoneController.text.trim(),
         birthday: birthday!,
         gender: gender!.name,
       );
@@ -76,16 +79,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> close() {
     nameController.clear();
     emailController.clear();
+    phoneController.clear();
     passwordController.clear();
     confirmPasswordController.clear();
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    nameFocusNode.dispose();
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-    confirmPasswordFocusNode.dispose();
     return super.close();
   }
 }

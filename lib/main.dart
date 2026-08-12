@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+//TODO import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:food_delivery/core/router/contents_router.dart';
 import 'package:food_delivery/firebase_options.dart';
 import 'package:food_delivery/my_app.dart';
@@ -14,7 +14,7 @@ import 'features/notification/presentation/cubit/notification_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait([
-    // dotenv.load(fileName: "assets/.env"),
+    //TODO dotenv.load(fileName: "assets/.env"),
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     AppPreferences.instance.init(),
   ]);

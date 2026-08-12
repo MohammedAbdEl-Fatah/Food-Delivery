@@ -13,6 +13,7 @@ abstract class TextString {
   static const String headerLogin = "Login to your\naccount.";
   static const String headerSubLogin = "Please sign in to your account ";
   static const String headerEmail = "Email Address";
+  static const String headerPhone = "Phone Number";
   static const String headerPassword = "Password";
   static const String headerRegisterConfirmPassword = "Confirm Password";
   static const String headerRegisterUserName = "Name";

@@ -12,6 +12,7 @@ class RegisterUserUseCase {
     required String name,
     required String email,
     required String password,
+    required String phone,
     required DateTime birthday,
     required String gender,
   }) async {
@@ -23,8 +24,9 @@ class RegisterUserUseCase {
       name: name,
       email: email,
       password: password,
-      birthday: birthday,
+      phone: phone,
       gender: gender,
+      birthday: birthday,
     );
   }
 

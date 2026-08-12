@@ -14,17 +14,16 @@ class FirebaseRegisterDataSource {
     required String name,
     required String email,
     required String password,
+    required String phone,
     required DateTime birthday,
     required String gender,
     required int age,
   }) async {
     try {
-      log("email$email");
       UserCredential cred = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      log("cred$cred");
       final user = cred.user;
       if (user == null) {
         return Left(FirebaseFailure("Registration failed: no user returned"));
@@ -37,19 +36,23 @@ class FirebaseRegisterDataSource {
         'userID': user.uid,
         'name': name,
         'email': email,
+        'phone': phone,
         'birthday': birthday.toIso8601String(),
         'gender': gender,
         'age': age,
         'createdAt': FieldValue.serverTimestamp(),
+        'confrimEmail': false,
       });
       return Right(
         RegisterEntity(
           id: user.uid,
           name: name,
           email: email,
+          phone: phone,
           birthday: birthday,
           gender: gender,
           age: age,
+          confrimEmail: false,
         ),
       );
     } on FirebaseAuthException catch (e) {

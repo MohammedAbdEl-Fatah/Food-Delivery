@@ -12,6 +12,7 @@ import 'package:food_delivery/features/auth/widget/custom_test_form_filed.dart';
 import 'package:food_delivery/features/auth/widget/custom_text_login.dart';
 import 'package:food_delivery/features/auth/widget/header.dart';
 import '../../../../../core/contents/enum.dart';
+import '../../../../../core/style/app_text_style.dart';
 import '../cubit/register_cubit.dart';
 
 class Register extends StatefulWidget {
@@ -37,8 +38,7 @@ class _RegisterState extends State<Register> {
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder:
-                        (_) => const Center(child: Loading()),
+                    builder: (_) => const Center(child: Loading()),
                   );
                 } else if (state is RegisterSuccess) {
                   if (Navigator.canPop(context)) {
@@ -97,6 +97,19 @@ class _RegisterState extends State<Register> {
                               context,
                             ).requestFocus(cubit.passwordFocusNode),
                         validator: ValidationTextField.email(),
+                      ),
+                      const SizedBox(height: 8),
+                      header(TextString.headerPhone),
+                      const SizedBox(height: 8),
+                      CustomTextFormField(
+                        controller: cubit.phoneController,
+                        focusNode: cubit.phoneFocusNode,
+                        hint: TextString.headerPhone,
+                        onFieldSubmitted:
+                            (_) => FocusScope.of(
+                              context,
+                            ).requestFocus(cubit.passwordFocusNode),
+                        validator: ValidationTextField.phoneNumber(),
                       ),
                       const SizedBox(height: 14),
                       header(TextString.headerPassword),
@@ -217,11 +230,31 @@ class _RegisterState extends State<Register> {
                       header('Gender'),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<GENDER>(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: ColorManager.white,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: ColorManager.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: ColorManager.primary,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                         elevation: 4,
                         focusColor: ColorManager.white,
-                        dropdownColor: ColorManager.white,
-                        initialValue: cubit.gender, // GENDER?
-                        hint: const Text('Select Gender'),
+                        initialValue: cubit.gender,
+                        hint: Text(
+                          'Select Gender',
+                          style: AppTextStyle.bodyLarge.copyWith(
+                            color: ColorManager.grey,
+                          ),
+                        ),
                         items: const [
                           DropdownMenuItem(
                             value: GENDER.male,

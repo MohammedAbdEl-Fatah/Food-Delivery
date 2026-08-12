@@ -14,6 +14,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
     required String name,
     required String email,
     required String password,
+    required String phone,
     required DateTime birthday,
     required String gender,
   }) async {
@@ -25,6 +26,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
         name: name,
         email: email,
         password: password,
+        phone: phone,
         birthday: birthday,
         gender: gender,
         age: age,
