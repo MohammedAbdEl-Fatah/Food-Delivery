@@ -11,6 +11,7 @@ import 'package:food_delivery/features/profile/presentation/widget/edit_text_pro
 
 import '../../../../core/di/servier_locator.dart';
 import '../../../../core/style/app_text_style.dart';
+import '../../../../core/widget/show_snack_bar.dart';
 import '../cubit/edit_profile_cubit.dart';
 import '../cubit/info_profile_cubit.dart';
 import '../widget/gender_drop_down.dart';
@@ -179,114 +180,112 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 isUpdated = true;
                 Navigator.pop(context, true);
               } else if (state is EditProfileError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
+                AppSnackBar.error(context, message: state.message);
               }
             },
             child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
 
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const PhotoProfileAndInfo(),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const PhotoProfileAndInfo(),
 
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.005),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.005),
 
-                  BlocListener<InfoProfileCubit, InfoProfileState>(
-                    listener: (context, state) {
-                      if (state is InfoProfileSuccess) {
-                        _setOriginalValues(state.userModel);
-                      }
-                    },
-
-                    child: BlocBuilder<InfoProfileCubit, InfoProfileState>(
-                      builder: (context, state) {
-                        final UserModel? user =
-                            state is InfoProfileSuccess
-                                ? state.userModel
-                                : null;
-
-                        return Column(
-                          children: [
-                            // =========================
-                            // Name
-                            // =========================
-                            EditTextProfile(
-                              text: "Full Name",
-                              controller: nameController,
-                              hintText:
-                                  (user?.name ?? '').isEmpty
-                                      ? 'Enter your full name'
-                                      : user!.name,
-                            ),
-
-                            // =========================
-                            // Email
-                            // =========================
-                            EditTextProfile(
-                              text: "Email",
-                              controller: emailController,
-                              hintText:
-                                  (user?.email ?? '').isEmpty
-                                      ? 'Enter your email'
-                                      : user!.email,
-                            ),
-
-                            // =========================
-                            // Phone
-                            // =========================
-                            EditTextProfile(
-                              text: "Phone",
-                              controller: phoneController,
-                              hintText:
-                                  _displayPhone(user?.phone).isEmpty
-                                      ? 'Add your phone number'
-                                      : _displayPhone(user?.phone),
-                            ),
-
-                            // =========================
-                            // Birth Date
-                            // =========================
-                            EditTextProfile(
-                              text: "Birth Date",
-                              controller: birthController,
-                              hintText:
-                                  _birthHint(user?.birthday).isEmpty
-                                      ? 'Add your birth date (YYYY-MM-DD)'
-                                      : _birthHint(user?.birthday),
-                            ),
-
-                            // =========================
-                            // Gender
-                            // =========================
-                            GenderDropDown(
-                              selectedGender: genderController.text,
-                              hintText: 'Select your gender',
-
-                              onChange: (gender) {
-                                setState(() {
-                                  genderController.text = gender ?? '';
-                                });
-                              },
-                            ),
-                          ],
-                        );
+                    BlocListener<InfoProfileCubit, InfoProfileState>(
+                      listener: (context, state) {
+                        if (state is InfoProfileSuccess) {
+                          _setOriginalValues(state.userModel);
+                        }
                       },
+
+                      child: BlocBuilder<InfoProfileCubit, InfoProfileState>(
+                        builder: (context, state) {
+                          final UserModel? user =
+                              state is InfoProfileSuccess
+                                  ? state.userModel
+                                  : null;
+
+                          return Column(
+                            children: [
+                              // =========================
+                              // Name
+                              // =========================
+                              EditTextProfile(
+                                text: "Full Name",
+                                controller: nameController,
+                                hintText:
+                                    (user?.name ?? '').isEmpty
+                                        ? 'Enter your full name'
+                                        : user!.name,
+                              ),
+
+                              // =========================
+                              // Email
+                              // =========================
+                              EditTextProfile(
+                                text: "Email",
+                                controller: emailController,
+                                hintText:
+                                    (user?.email ?? '').isEmpty
+                                        ? 'Enter your email'
+                                        : user!.email,
+                              ),
+
+                              // =========================
+                              // Phone
+                              // =========================
+                              EditTextProfile(
+                                text: "Phone",
+                                controller: phoneController,
+                                hintText:
+                                    _displayPhone(user?.phone).isEmpty
+                                        ? 'Add your phone number'
+                                        : _displayPhone(user?.phone),
+                              ),
+
+                              // =========================
+                              // Birth Date
+                              // =========================
+                              EditTextProfile(
+                                text: "Birth Date",
+                                controller: birthController,
+                                hintText:
+                                    _birthHint(user?.birthday).isEmpty
+                                        ? 'Add your birth date (YYYY-MM-DD)'
+                                        : _birthHint(user?.birthday),
+                              ),
+
+                              // =========================
+                              // Gender
+                              // =========================
+                              GenderDropDown(
+                                selectedGender: genderController.text,
+                                hintText: 'Select your gender',
+
+                                onChange: (gender) {
+                                  setState(() {
+                                    genderController.text = gender ?? '';
+                                  });
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  ),
 
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
+                    SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
 
-                  _buildSaveButton(),
-                ],
+                    _buildSaveButton(),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
       ),
     );
   }

@@ -16,6 +16,7 @@ import 'package:food_delivery/features/auth/widget/custom_method_sign_in.dart';
 import 'package:food_delivery/features/auth/widget/header.dart';
 import 'package:food_delivery/features/auth/widget/custom_text_register.dart';
 
+import '../../../../../core/widget/show_snack_bar.dart';
 import '../cubit/login/login_cubit.dart';
 import '../../../widget/custom_test_form_filed.dart';
 
@@ -74,14 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   (route) => false,
                 );
               } else if (state is LoginFailure) {
-                log("message ${state.errorMessage}");
                 Navigator.pop(context); // Close loading dialog
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.errorMessage),
-                    // duration: Duration(minutes: 2),
-                  ),
-                );
+                AppSnackBar.error(context, message: state.errorMessage);
               }
             },
           ),

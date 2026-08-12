@@ -17,6 +17,7 @@ import 'package:food_delivery/features/auth/log_in/presentation/cubit/google_log
 import 'package:food_delivery/features/auth/log_in/presentation/cubit/google_login/google_login_state.dart';
 import 'package:food_delivery/features/onboarding/presentation/cubit/on_boarding_cubit.dart';
 
+import 'core/widget/show_snack_bar.dart';
 import 'features/cart/presentation/cubit/cart_cubit.dart';
 import 'features/favorite/presentation/cubit/favorite_cubit.dart';
 
@@ -101,7 +102,8 @@ class MyApp extends StatelessWidget {
                     navigator.popUntil(
                       (route) => route.settings.name != '/google-login-loading',
                     );
-                    final isGoogleAuthenticated = FirebaseAuth.instance
+                    final isGoogleAuthenticated = FirebaseAuth
+                        .instance
                         .currentUser
                         ?.providerData
                         .any((provider) => provider.providerId == 'google.com');
@@ -112,9 +114,7 @@ class MyApp extends StatelessWidget {
                       );
                       return;
                     }
-                    ScaffoldMessenger.of(rootContext).showSnackBar(
-                      SnackBar(content: Text(state.errorMessage)),
-                    );
+                    AppSnackBar.error(context, message: state.errorMessage);
                   }
                 },
               ),

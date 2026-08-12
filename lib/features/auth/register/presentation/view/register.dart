@@ -14,6 +14,7 @@ import 'package:food_delivery/features/auth/widget/header.dart';
 import '../../../../../core/contents/enum.dart';
 import '../../../../../core/router/contents_router.dart';
 import '../../../../../core/style/app_text_style.dart';
+import '../../../../../core/widget/show_snack_bar.dart';
 import '../../../otp/domain/otp_verification_args.dart';
 import '../cubit/register_cubit.dart';
 
@@ -59,10 +60,9 @@ class _RegisterState extends State<Register> {
                   if (Navigator.canPop(context)) {
                     Navigator.pop(context); // Close loading dialog if open
                   }
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Registration failed: ${state.error}'),
-                    ),
+                  AppSnackBar.error(
+                    context,
+                    message: 'Registration failed: ${state.error}',
                   );
                 }
               },
