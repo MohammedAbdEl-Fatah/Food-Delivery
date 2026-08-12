@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,6 +41,11 @@ class FirebaseRegisterDataSource {
         'createdAt': FieldValue.serverTimestamp(),
         'confrimEmail': false,
       });
+
+      // createUserWithEmailAndPassword signs the user in automatically.
+      // Sign out so they must log in manually after registration.
+      await _auth.signOut();
+
       return Right(
         RegisterEntity(
           id: user.uid,

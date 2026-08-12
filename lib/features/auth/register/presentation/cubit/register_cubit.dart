@@ -26,7 +26,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this._useCase) : super(RegisterInitial());
 
-  Future<void> register(BuildContext context) async {
+  Future<void> register() async {
     if (birthday == null || gender == null) {
       emit(RegisterFailure('Please select birthday and gender'));
       return;
@@ -55,10 +55,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       result.fold(
         (failure) =>
             emit(RegisterFailure('Registration failed: ${failure.message}')),
-        (user) {
-          Navigator.of(context).pop();
-          emit(RegisterSuccess(user));
-        },
+        (user) => emit(RegisterSuccess(user)),
       );
     } catch (e) {
       emit(RegisterFailure(e.toString()));

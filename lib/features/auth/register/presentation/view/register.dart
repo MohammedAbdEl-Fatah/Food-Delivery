@@ -46,10 +46,12 @@ class _RegisterState extends State<Register> {
                   }
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Registration successful! Welcome!'),
+                      content: Text(
+                        'Account created successfully! Please log in.',
+                      ),
                     ),
                   );
-                  // Navigate to next screen
+                  Navigator.of(context).pop();
                 } else if (state is RegisterFailure) {
                   if (Navigator.canPop(context)) {
                     Navigator.pop(context); // Close loading dialog if open
@@ -280,7 +282,7 @@ class _RegisterState extends State<Register> {
                             FocusScope.of(context).unfocus();
                             if (widget._formKey.currentState?.validate() ??
                                 false) {
-                              cubit.register(context);
+                              cubit.register();
                             }
                           },
                           text: TextString.submit,
