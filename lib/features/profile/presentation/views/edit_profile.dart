@@ -82,6 +82,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() {});
   }
 
+  String _displayPhone(String? phone) {
+    if (phone == null || phone.trim().isEmpty) return 'No Phone';
+    return phone;
+  }
+
+  String _phoneForSave(String phone) {
+    if (phone.trim().isEmpty || phone == 'No Phone') return '';
+    return phone;
+  }
+
   /// Set the original values after loading the profile.
   void _setOriginalValues(UserModel user) {
     final birthDate =
@@ -92,7 +102,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     // Set controllers
     nameController.text = user.name;
     emailController.text = user.email;
-    phoneController.text = user.phone ?? '';
+    phoneController.text = _displayPhone(user.phone);
     birthController.text = birthDate;
     genderController.text = user.gender;
     ageController.text = user.age.toString();
@@ -100,7 +110,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     // Save original values
     originalName = user.name;
     originalEmail = user.email;
-    originalPhone = user.phone ?? '';
+    originalPhone = _displayPhone(user.phone);
     originalBirthDate = birthDate;
     originalGender = user.gender;
 
@@ -136,7 +146,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
 
           title: Text(
-            'Personal Data',
+            'Personal Information',
             style: AppTextStyle.bodyLarge.copyWith(
               fontWeight: FontWeight.w600,
               color: ColorManager.black,
@@ -182,7 +192,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // =========================
                             // Name
                             // =========================
-                            EditTextPrpfile(
+                            EditTextProfile(
                               text: "Full Name",
                               controller: nameController,
                               hintText: user?.name ?? "",
@@ -191,7 +201,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // =========================
                             // Email
                             // =========================
-                            EditTextPrpfile(
+                            EditTextProfile(
                               text: "Email",
                               controller: emailController,
                               hintText: user?.email ?? "",
@@ -200,16 +210,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // =========================
                             // Phone
                             // =========================
-                            EditTextPrpfile(
+                            EditTextProfile(
                               text: "Phone",
                               controller: phoneController,
-                              hintText: user?.phone ?? "No Phone",
+                              hintText: _displayPhone(user?.phone),
                             ),
 
                             // =========================
                             // Birth Date
                             // =========================
-                            EditTextPrpfile(
+                            EditTextProfile(
                               text: "Birth Date",
                               controller: birthController,
                               hintText:
@@ -286,7 +296,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       UserModel(
                         name: nameController.text,
                         email: emailController.text,
-                        phone: phoneController.text,
+                        phone: _phoneForSave(phoneController.text),
                         birthday: birthController.text,
                         gender: genderController.text,
                         createdAt: DateTime.now(),

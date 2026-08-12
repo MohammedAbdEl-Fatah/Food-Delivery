@@ -19,7 +19,6 @@ class ImageResources {
 }
 
 class AnimationResources {
-  static const String maleAvater = "assets/animation/male_avatar.gif";
-  static const String femaleAvatar = "assets/animation/female_avatar.gif";
-
+  static const String maleAvater = "assets/animation/male.gif";
+  static const String femaleAvatar = "assets/animation/female.gif";
 }

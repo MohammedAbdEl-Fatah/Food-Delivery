@@ -14,7 +14,7 @@ import 'features/notification/presentation/cubit/notification_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait([
-    dotenv.load(fileName: "assets/.env"),
+    // dotenv.load(fileName: "assets/.env"),
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     AppPreferences.instance.init(),
   ]);

@@ -15,7 +15,10 @@ class InfoProfileCubit extends Cubit<InfoProfileState> {
 
   Future<void> getProfile() async {
     if (userModel != null) {
-      emit(InfoProfileSuccess(userModel!));
+      // Defer emit so BlocListeners are mounted before the state is delivered.
+      await Future.microtask(() {
+        if (!isClosed) emit(InfoProfileSuccess(userModel!));
+      });
       return;
     }
     //emit loading

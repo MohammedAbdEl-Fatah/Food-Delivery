@@ -3,8 +3,8 @@ import 'package:food_delivery/core/style/app_text_style.dart';
 
 import '../../../../core/Colors/color_manager.dart';
 
-class EditTextPrpfile extends StatelessWidget {
-  const EditTextPrpfile({
+class EditTextProfile extends StatelessWidget {
+  const EditTextProfile({
     super.key,
     required this.text,
     required this.controller,
@@ -18,7 +18,10 @@ class EditTextPrpfile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(text, style: AppTextStyle.bodyLarge),
+        Text(
+          text,
+          style: AppTextStyle.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         TextField(
           controller: controller,
@@ -29,8 +32,11 @@ class EditTextPrpfile extends StatelessWidget {
               borderSide: const BorderSide(color: ColorManager.primary),
             ),
             focusColor: ColorManager.primary,
-            fillColor: ColorManager.white,
-            hintText: hintText, //data info
+            // fillColor: ColorManager.white,
+            hintText: hintText,
+            hintStyle: AppTextStyle.bodyLarge.copyWith(
+              color: ColorManager.black.withAlpha((255 * 0.5).toInt()),
+            ),
           ),
         ),
         const SizedBox(height: 12),
@@ -41,7 +47,9 @@ class EditTextPrpfile extends StatelessWidget {
   OutlineInputBorder _buildBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: const BorderSide(color: ColorManager.grey),
+      borderSide: BorderSide(
+        color: ColorManager.black.withAlpha((255 * 0.9).toInt()),
+      ),
     );
   }
 }

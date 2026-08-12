@@ -22,11 +22,15 @@ class PhotoProfileAndInfo extends StatelessWidget {
           return Row(
             children: [
               CircleAvatar(
-                backgroundColor: ColorManager.grey.withAlpha((255*0.45).toInt()),
+                backgroundColor: ColorManager.grey.withAlpha(
+                  (255 * 0.45).toInt(),
+                ),
                 maxRadius: MediaQuery.sizeOf(context).aspectRatio * 50 * 4,
                 minRadius: MediaQuery.sizeOf(context).aspectRatio * 50 * 2,
-                backgroundImage:  AssetImage(
-                state.userModel.gender == 'male' ? AnimationResources.maleAvater : AnimationResources.femaleAvatar,
+                backgroundImage: AssetImage(
+                  state.userModel.gender == 'male'
+                      ? AnimationResources.maleAvater
+                      : AnimationResources.femaleAvatar,
                 ),
               ),
               SizedBox(width: MediaQuery.sizeOf(context).width * 0.025),
