@@ -38,6 +38,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String originalPhone = '';
   String originalBirthDate = '';
   String originalGender = '';
+  DateTime loadedCreatedAt = DateTime.now();
 
   @override
   void initState() {
@@ -83,13 +84,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   String _displayPhone(String? phone) {
-    if (phone == null || phone.trim().isEmpty) return 'No Phone';
-    return phone;
+    if (phone == null || phone.trim().isEmpty) return '';
+    return phone.trim();
   }
 
   String _phoneForSave(String phone) {
-    if (phone.trim().isEmpty || phone == 'No Phone') return '';
-    return phone;
+    return phone.trim();
+  }
+
+  String _birthHint(String? birthday) {
+    if (birthday == null || birthday.trim().isEmpty) {
+      return 'e.g. 2000-01-15';
+    }
+    if (birthday.contains('T')) {
+      return birthday.substring(0, birthday.indexOf('T'));
+    }
+    return birthday;
   }
 
   /// Set the original values after loading the profile.
@@ -113,6 +123,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     originalPhone = _displayPhone(user.phone);
     originalBirthDate = birthDate;
     originalGender = user.gender;
+    loadedCreatedAt = user.createdAt;
 
     // At this point nothing has been changed by the user.
     isUpdated = false;
@@ -162,7 +173,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
             BlocProvider(create: (_) => sl<EditProfileCubit>()),
           ],
 
-          child: Padding(
+          child: BlocListener<EditProfileCubit, EditProfileState>(
+            listener: (context, state) {
+              if (state is EditProfileSuccess) {
+                isUpdated = true;
+                Navigator.pop(context, true);
+              } else if (state is EditProfileError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
+                );
+              }
+            },
+            child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
 
             child: SingleChildScrollView(
@@ -195,7 +217,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             EditTextProfile(
                               text: "Full Name",
                               controller: nameController,
-                              hintText: user?.name ?? "",
+                              hintText:
+                                  (user?.name ?? '').isEmpty
+                                      ? 'Enter your full name'
+                                      : user!.name,
                             ),
 
                             // =========================
@@ -204,7 +229,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             EditTextProfile(
                               text: "Email",
                               controller: emailController,
-                              hintText: user?.email ?? "",
+                              hintText:
+                                  (user?.email ?? '').isEmpty
+                                      ? 'Enter your email'
+                                      : user!.email,
                             ),
 
                             // =========================
@@ -213,7 +241,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             EditTextProfile(
                               text: "Phone",
                               controller: phoneController,
-                              hintText: _displayPhone(user?.phone),
+                              hintText:
+                                  _displayPhone(user?.phone).isEmpty
+                                      ? 'Add your phone number'
+                                      : _displayPhone(user?.phone),
                             ),
 
                             // =========================
@@ -223,14 +254,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               text: "Birth Date",
                               controller: birthController,
                               hintText:
-                                  user == null
-                                      ? ""
-                                      : (user.birthday.contains('T')
-                                          ? user.birthday.substring(
-                                            0,
-                                            user.birthday.indexOf('T'),
-                                          )
-                                          : user.birthday),
+                                  _birthHint(user?.birthday).isEmpty
+                                      ? 'Add your birth date (YYYY-MM-DD)'
+                                      : _birthHint(user?.birthday),
                             ),
 
                             // =========================
@@ -238,6 +264,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             // =========================
                             GenderDropDown(
                               selectedGender: genderController.text,
+                              hintText: 'Select your gender',
 
                               onChange: (gender) {
                                 setState(() {
@@ -259,6 +286,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
         ),
+      ),
       ),
     );
   }
@@ -294,24 +322,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                     context.read<EditProfileCubit>().updateProfile(
                       UserModel(
-                        name: nameController.text,
-                        email: emailController.text,
+                        name: nameController.text.trim(),
+                        email: emailController.text.trim(),
                         phone: _phoneForSave(phoneController.text),
-                        birthday: birthController.text,
-                        gender: genderController.text,
-                        createdAt: DateTime.now(),
-
+                        birthday: birthController.text.trim(),
+                        gender: genderController.text.trim(),
+                        createdAt: loadedCreatedAt,
                         id: AppPreferences.instance.getString(
                           key: SharedPreferenceKey.userId,
                         ),
-
                         age: int.tryParse(ageController.text) ?? 0,
                       ),
                     );
-
-                    isUpdated = true;
-                    Navigator.pop(context, isUpdated);
-                    log("isUpdated: $isUpdated");
                   }
                   : null,
 

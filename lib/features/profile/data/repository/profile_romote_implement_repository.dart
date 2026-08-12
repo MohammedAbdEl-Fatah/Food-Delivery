@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_delivery/core/model/user_model.dart';
@@ -26,20 +27,72 @@ class ProfileRomoteImplementRepository extends ProfileRomoteDataSource
   Future<Either<String, UserModel>> getProfileInfo(String userID) async {
     log('####@#userID: $userID');
     final res = await fetchProfileInfo(userID);
-    if (res == null) {
+    if (res != null) {
+      return right(res);
+    }
+
+    final authProfile = _profileFromAuthUser(userID);
+    if (authProfile == null) {
       return left('User not found for id: $userID');
     }
-    return right(res);
+
+    try {
+      await _saveProfile(authProfile, mergeOnly: true);
+    } catch (e) {
+      log('Failed to sync auth profile to Firestore: $e');
+    }
+
+    return right(authProfile);
   }
 
   @override
   Future<Either<String, Unit>> updateProfile(UserModel user) async {
     try {
-      await service.update(user);
+      await _saveProfile(user, mergeOnly: true);
       return right(unit);
     } catch (e) {
       return left(e.toString());
     }
+  }
+
+  UserModel? _profileFromAuthUser(String userID) {
+    final firebaseAuth = auth ?? FirebaseAuth.instance;
+    final currentUser = firebaseAuth.currentUser;
+    if (currentUser == null || currentUser.uid != userID) {
+      return null;
+    }
+
+    return UserModel(
+      id: currentUser.uid,
+      name: currentUser.displayName ?? '',
+      email: currentUser.email ?? '',
+      photoUrl: currentUser.photoURL,
+      age: 0,
+      gender: '',
+      birthday: '',
+      createdAt: currentUser.metadata.creationTime ?? DateTime.now(),
+      phone: currentUser.phoneNumber,
+    );
+  }
+
+  Future<void> _saveProfile(UserModel user, {required bool mergeOnly}) async {
+    final firebaseAuth = auth ?? FirebaseAuth.instance;
+    final currentUser = firebaseAuth.currentUser;
+    final isGoogleUser =
+        currentUser?.providerData.any(
+          (provider) => provider.providerId == 'google.com',
+        ) ??
+        false;
+
+    await service.firestore.collection(service.collectionPath).doc(user.id).set(
+      {
+        ...user.toMap(),
+        'userID': user.id,
+        if (isGoogleUser) 'provider': 'google',
+        if (isGoogleUser) 'confrimEmail': true,
+      },
+      SetOptions(merge: mergeOnly),
+    );
   }
 
   @override

@@ -155,6 +155,8 @@ class FirebaseLogInRepository extends LogInRepository {
             .doc(firebaseUser.uid)
             .set({
               ...userGoogle.toMap(),
+              'userID': firebaseUser.uid,
+              'age': 0,
               'confrimEmail': true,
             }, SetOptions(merge: true));
       } on FirebaseException catch (e) {

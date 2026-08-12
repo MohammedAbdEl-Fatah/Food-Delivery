@@ -10,6 +10,7 @@ import 'package:food_delivery/features/profile/data/sources/profile_static_data.
 import 'package:food_delivery/features/profile/presentation/cubit/info_profile_cubit.dart';
 
 import '../widget/log_out_button.dart';
+import '../widget/profile_details_section.dart';
 import '../widget/profile_profile_and_info.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -27,7 +28,9 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
               // todo stack ::::::::image edit photo
               const PhotoProfileAndInfo(),
-              SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+              const ProfileDetailsSection(),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
               Align(
                 alignment: AlignmentGeometry.centerLeft,
                 child: Text(

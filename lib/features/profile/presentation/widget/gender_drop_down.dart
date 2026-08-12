@@ -5,9 +5,15 @@ import 'package:food_delivery/core/style/app_text_style.dart';
 import '../../../../core/Colors/color_manager.dart';
 
 class GenderDropDown extends StatelessWidget {
-  const GenderDropDown({super.key, this.selectedGender, this.onChange});
+  const GenderDropDown({
+    super.key,
+    this.selectedGender,
+    this.onChange,
+    this.hintText = 'Select your gender',
+  });
   final String? selectedGender;
   final void Function(String?)? onChange;
+  final String hintText;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,6 +38,10 @@ class GenderDropDown extends StatelessWidget {
           ],
           onChanged: onChange,
           decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: AppTextStyle.bodyLarge.copyWith(
+              color: ColorManager.black.withAlpha((255 * 0.5).toInt()),
+            ),
             border: _buildBorder(),
             enabledBorder: _buildBorder(),
             focusedBorder: _buildBorder(isFocused: true),
