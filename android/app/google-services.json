@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "218086322843-vjitol5d4e7jlj0dquq4qs6860fdvlvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.food_delivery",
+            "certificate_hash": "3bc75ef504b7ea4e5368515d0e4778f9679df568"
+          }
+        },
+        {
           "client_id": "218086322843-jnlcq061qc9pqlhuibnauh2a4rd6k2hk.apps.googleusercontent.com",
           "client_type": 3
         }

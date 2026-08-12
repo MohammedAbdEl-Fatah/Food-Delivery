@@ -3,9 +3,8 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_delivery/core/service/firebase_store_service.dart';
+import 'package:flutter/services.dart';
 import 'package:food_delivery/core/utils/error/failures.dart';
-import 'package:food_delivery/features/auth/domain/entities/user_entity.dart';
 import 'package:food_delivery/features/auth/log_in/data/model/user_google.dart';
 import 'package:food_delivery/features/auth/log_in/domain/entities/log_in_entity.dart';
 import 'package:food_delivery/features/auth/log_in/domain/repository/log_in_repository.dart';
@@ -15,13 +14,12 @@ import '../../../../../core/contents/enum.dart';
 import '../../../../../core/storage/shared_preference.dart';
 
 class FirebaseLogInRepository extends LogInRepository {
-  final FirebaseStoreService _fireStoreService =
-      FirebaseStoreService<UserEntity>(
-        firestore: FirebaseFirestore.instance,
-        collectionPath: 'users',
-        fromMap: (map) => UserEntity.fromMap(map),
-      );
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  static const _googleWebClientId =
+      '218086322843-jnlcq061qc9pqlhuibnauh2a4rd6k2hk.apps.googleusercontent.com';
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    serverClientId: _googleWebClientId,
+  );
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -105,38 +103,96 @@ class FirebaseLogInRepository extends LogInRepository {
 
   @override
   Future<Either<Failure, UserGoogle>> logInGoogle() async {
-    final user = await _googleSignIn.signIn();
-    if (user != null) {
-      final authentication = await user.authentication;
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return Left(FirebaseFailure('Google sign-in was cancelled.'));
+      }
+
+      final authentication = await googleUser.authentication;
+      final idToken = authentication.idToken;
+      if (idToken == null) {
+        return Left(
+          FirebaseFailure(
+            'Google sign-in failed: missing ID token. Check Firebase Google Sign-In setup.',
+          ),
+        );
+      }
+
       final credential = GoogleAuthProvider.credential(
         accessToken: authentication.accessToken,
-        idToken: authentication.idToken,
+        idToken: idToken,
       );
       final userCredential = await _auth.signInWithCredential(credential);
-      //save id in shared preferences
+      final firebaseUser = userCredential.user;
+      if (firebaseUser == null) {
+        return Left(FirebaseFailure('Google sign-in failed. Please try again.'));
+      }
+
+      // Ensure the auth token is available to Firestore before writing user data.
+      await firebaseUser.getIdToken(true);
+
       await AppPreferences.instance.setString(
         key: SharedPreferenceKey.userId,
-        value: userCredential.user!.uid,
+        value: firebaseUser.uid,
       );
-      log('####@#userCredential: ${userCredential.user!.uid}');
-      log(
-        '####@#userCredential: name:${userCredential.user?.displayName}, image:${user.photoUrl }, email:${userCredential.user?.email}',
-      );
-      UserGoogle userGoogle = UserGoogle(
-        id: userCredential.user!.uid,
-        name: userCredential.user!.displayName ?? '',
-        email: userCredential.user!.email ?? '',
-        photoUrl: userCredential.user!.providerData.first.photoURL ?? '',
+
+      final userGoogle = UserGoogle(
+        id: firebaseUser.uid,
+        name: firebaseUser.displayName ?? googleUser.displayName ?? '',
+        email: firebaseUser.email ?? googleUser.email,
+        photoUrl: firebaseUser.photoURL ?? googleUser.photoUrl ?? '',
         gender: '',
         birthday: '',
         createdAt: DateTime.now(),
-        phone: userCredential.user!.phoneNumber ?? '',
+        phone: firebaseUser.phoneNumber ?? '',
         provider: 'google',
       );
-      await _fireStoreService.add(userGoogle);
+
+      try {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(firebaseUser.uid)
+            .set({
+              ...userGoogle.toMap(),
+              'confrimEmail': true,
+            }, SetOptions(merge: true));
+      } on FirebaseException catch (e) {
+        // Auth succeeded; don't block login if profile sync fails.
+        log(
+          'Google sign-in succeeded but Firestore sync failed: ${e.code} ${e.message}',
+        );
+      }
+
       return Right(userGoogle);
-    } else {
-      return Left(FirebaseFailure('Google sign-in was cancelled.'));
+    } on FirebaseAuthException catch (e) {
+      log('Google sign-in FirebaseAuthException: ${e.code} ${e.message}');
+      return Left(
+        FirebaseFailure(
+          e.message ?? 'Google sign-in failed (${e.code}). Please try again.',
+        ),
+      );
+    } on PlatformException catch (e) {
+      log('Google sign-in PlatformException: ${e.code} ${e.message}');
+      return Left(FirebaseFailure(_mapGooglePlatformError(e)));
+    } catch (e, s) {
+      log('Google sign-in error: $e');
+      log('StackTrace: $s');
+      return Left(FirebaseFailure('Google sign-in failed: $e'));
     }
+  }
+
+  String _mapGooglePlatformError(PlatformException error) {
+    final details = error.message ?? '';
+    if (details.contains('ApiException: 10') ||
+        details.contains('DEVELOPER_ERROR')) {
+      return 'Google Sign-In is not configured for this device. '
+          'Add your app SHA-1 fingerprint in Firebase Console, '
+          'download a new google-services.json, then rebuild the app.';
+    }
+    if (error.code == 'sign_in_canceled') {
+      return 'Google sign-in was cancelled.';
+    }
+    return 'Google sign-in failed: ${error.message ?? error.code}';
   }
 }

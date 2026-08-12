@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,9 @@ import 'package:food_delivery/features/auth/log_in/data/repository/firebase_log_
 import 'package:food_delivery/features/auth/log_in/domain/use_case/login_google_usecase.dart';
 import 'package:food_delivery/features/auth/log_in/domain/use_case/login_usecase.dart';
 import 'package:food_delivery/features/auth/log_in/presentation/cubit/login/login_cubit.dart';
+import 'package:food_delivery/core/widget/loading.dart';
 import 'package:food_delivery/features/auth/log_in/presentation/cubit/google_login/google_login_cubit.dart';
+import 'package:food_delivery/features/auth/log_in/presentation/cubit/google_login/google_login_state.dart';
 import 'package:food_delivery/features/onboarding/presentation/cubit/on_boarding_cubit.dart';
 
 import 'features/cart/presentation/cubit/cart_cubit.dart';
@@ -56,16 +59,66 @@ class MyApp extends StatelessWidget {
         ),
         child: BlocProvider.value(
           value: sl<NotificationCubit>(),
-          child: BlocListener<NotificationCubit, NotificationState>(
-            listenWhen:
-                (previous, current) => current is NotificationScreenOpenState,
-            listener: (context, state) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                navigatorKey.currentState?.pushNamed(
-                  ContentsRouter.notificationScreen,
-                );
-              });
-            },
+          child: MultiBlocListener(
+            listeners: [
+              BlocListener<NotificationCubit, NotificationState>(
+                listenWhen:
+                    (previous, current) =>
+                        current is NotificationScreenOpenState,
+                listener: (context, state) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    navigatorKey.currentState?.pushNamed(
+                      ContentsRouter.notificationScreen,
+                    );
+                  });
+                },
+              ),
+              BlocListener<GoogleLoginCubit, GoogleLoginState>(
+                listener: (context, state) {
+                  final navigator = navigatorKey.currentState;
+                  final rootContext = navigatorKey.currentContext;
+                  if (navigator == null || rootContext == null) return;
+
+                  if (state is GoogleLoginLoading) {
+                    showDialog<void>(
+                      context: rootContext,
+                      barrierDismissible: false,
+                      useRootNavigator: true,
+                      routeSettings: const RouteSettings(
+                        name: '/google-login-loading',
+                      ),
+                      builder: (_) => const Center(child: Loading()),
+                    );
+                  } else if (state is GoogleLoginSuccess) {
+                    navigator.popUntil(
+                      (route) => route.settings.name != '/google-login-loading',
+                    );
+                    navigator.pushNamedAndRemoveUntil(
+                      ContentsRouter.layout,
+                      (route) => false,
+                    );
+                  } else if (state is GoogleLoginFailure) {
+                    navigator.popUntil(
+                      (route) => route.settings.name != '/google-login-loading',
+                    );
+                    final isGoogleAuthenticated = FirebaseAuth.instance
+                        .currentUser
+                        ?.providerData
+                        .any((provider) => provider.providerId == 'google.com');
+                    if (isGoogleAuthenticated == true) {
+                      navigator.pushNamedAndRemoveUntil(
+                        ContentsRouter.layout,
+                        (route) => false,
+                      );
+                      return;
+                    }
+                    ScaffoldMessenger.of(rootContext).showSnackBar(
+                      SnackBar(content: Text(state.errorMessage)),
+                    );
+                  }
+                },
+              ),
+            ],
             child: MaterialApp(
               navigatorKey: navigatorKey,
               title: "Food Delivery App",

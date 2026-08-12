@@ -26,6 +26,13 @@ class Auth extends StatelessWidget {
           return const LoginScreen();
         }
 
+        final isGoogleSignIn = user.providerData.any(
+          (provider) => provider.providerId == 'google.com',
+        );
+        if (isGoogleSignIn) {
+          return const LayoutScreen();
+        }
+
         return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           stream:
               FirebaseFirestore.instance
@@ -37,10 +44,11 @@ class Auth extends StatelessWidget {
               return const Material(child: Center(child: Loading()));
             }
 
-            final isEmailConfirmed =
-                userSnapshot.data?.data()?['confrimEmail'] == true;
+            final userData = userSnapshot.data?.data();
+            final isEmailConfirmed = userData?['confrimEmail'] == true;
+            final isGoogleUser = userData?['provider'] == 'google';
 
-            if (isEmailConfirmed) {
+            if (isEmailConfirmed || isGoogleUser) {
               return const LayoutScreen();
             }
 

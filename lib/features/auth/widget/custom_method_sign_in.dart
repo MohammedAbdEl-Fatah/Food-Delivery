@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery/core/colors/color_manager.dart';
+import 'package:food_delivery/core/style/app_text_style.dart';
 import 'package:food_delivery/features/auth/log_in/presentation/cubit/google_login/google_login_cubit.dart';
 
 class CustomMethodSignIn extends StatelessWidget {
@@ -11,22 +13,23 @@ class CustomMethodSignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      spacing: 30,
-      children: [
-        //TODO : logic sign in with apple
-        customIcon(icon: FontAwesomeIcons.apple),
-        //TODO : logic sign in with facebook
-        customIcon(icon: FontAwesomeIcons.facebook),
-        //TODO : logic sign in with google
-        customIcon(
-          icon: FontAwesomeIcons.google,
-          onTap: () {
-            context.read<GoogleLoginCubit>().logInWithGoogle();
-          },
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {
+          context.read<GoogleLoginCubit>().logInWithGoogle();
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ColorManager.primary,
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.heightOf(context) * 0.01,
+            horizontal: MediaQuery.widthOf(context) * 0.21,
+          ),
         ),
-      ],
+        child: Text(
+          "Google",
+          style: AppTextStyle.header6.copyWith(color: ColorManager.white),
+        ),
+      ),
     );
   }
 }

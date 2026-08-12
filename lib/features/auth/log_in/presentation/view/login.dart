@@ -17,8 +17,6 @@ import 'package:food_delivery/features/auth/widget/header.dart';
 import 'package:food_delivery/features/auth/widget/custom_text_register.dart';
 
 import '../cubit/login/login_cubit.dart';
-import '../cubit/google_login/google_login_cubit.dart';
-import '../cubit/google_login/google_login_state.dart';
 import '../../../widget/custom_test_form_filed.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -76,33 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   (route) => false,
                 );
               } else if (state is LoginFailure) {
-                log("message ${state.errorMessage}");
-                Navigator.pop(context); // Close loading dialog
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.errorMessage),
-                    // duration: Duration(minutes: 2),
-                  ),
-                );
-              }
-            },
-          ),
-          BlocListener<GoogleLoginCubit, GoogleLoginState>(
-            listener: (context, state) {
-              if (state is GoogleLoginLoading) {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (_) => const Center(child: Loading()),
-                );
-              } else if (state is GoogleLoginSuccess) {
-                Navigator.pop(context); // Close loading dialog
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  ContentsRouter.layout,
-                  (route) => false,
-                );
-              } else if (state is GoogleLoginFailure) {
                 log("message ${state.errorMessage}");
                 Navigator.pop(context); // Close loading dialog
                 ScaffoldMessenger.of(context).showSnackBar(

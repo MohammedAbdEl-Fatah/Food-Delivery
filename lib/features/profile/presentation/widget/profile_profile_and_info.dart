@@ -39,6 +39,7 @@ class PhotoProfileAndInfo extends StatelessWidget {
                 children: [
                   Text(
                     state.userModel.name,
+                    overflow: TextOverflow.ellipsis,
                     style: AppTextStyle.header6.copyWith(
                       color: ColorManager.black,
                       fontWeight: FontWeight.bold,
@@ -47,6 +48,7 @@ class PhotoProfileAndInfo extends StatelessWidget {
                   SizedBox(height: MediaQuery.sizeOf(context).height * 0.001),
                   Text(
                     state.userModel.email,
+                    overflow: TextOverflow.ellipsis,
                     style: AppTextStyle.bodyLarge.copyWith(
                       color: ColorManager.grey,
                       fontWeight: FontWeight.w500,
