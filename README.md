@@ -73,7 +73,7 @@ TODO
   <img src="screenshots/profile.jpeg" width="300">
   <img src="screenshots/profile Google.jpeg" width="300">
 </p>
----
+
 
 ## 🚀 Features
 
@@ -109,7 +109,7 @@ TODO
 🎥 [TODO Add Authentication Flow Video]
 ```
 
----
+
 
 ### 🏠 Home Module
 
@@ -174,6 +174,7 @@ TODO
   <img src="screenshots/emptyFavorite.jpeg" width="200">
   <img src="screenshots/favorite.jpeg" width="200">
 </p>
+
 ---
 
 ### 👤 Profile Module
@@ -196,8 +197,6 @@ TODO
   <img src="screenshots/saveeditprofile.jpeg" width="200">
   <img src="screenshots/profile Google.jpeg" width="200">
 </p>
-
----
 
 ---
 
@@ -243,6 +242,8 @@ TODO
   <img src="screenshots/criditcart.jpeg" width="200">
   <img src="screenshots/order.jpeg" width="200">
 </p>
+
+---
 
 ### 📐 Layout Module
 
