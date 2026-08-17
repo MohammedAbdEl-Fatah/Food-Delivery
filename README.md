@@ -10,27 +10,24 @@ This project simulates a real-world food delivery experience where users can bro
 
 It was built to:
 
-* Practice **scalable architecture (Clean Architecture)**
-* Apply **BLoC for predictable state management**
-* Integrate **Firebase services in a production-like app**
+- Practice **scalable architecture (Clean Architecture)**
+- Apply **BLoC for predictable state management**
+- Integrate **Firebase services in a production-like app**
 
 ---
 
 ## 🌟 Key Highlights
 
-* 🧱 Clean Architecture with feature-based modular structure
-* 🔄 Reactive state management using BLoC
-* 🔐 Secure authentication (Email + Google Sign-In)
-* 🔔 Real-time notifications with Firebase Messaging
-* ⚡ Optimized performance with caching and efficient state updates
-* 📱 Fully responsive UI across multiple platforms
+- 🧱 Clean Architecture with feature-based modular structure
+- 🔄 Reactive state management using BLoC
+- 🔐 Secure authentication (Email + Google Sign-In)
+- 🔔 Real-time notifications with Firebase Messaging
+- ⚡ Optimized performance with caching and efficient state updates
+- 📱 Fully responsive UI across multiple platforms
 
 ---
 
 ## 🎥 Demo
-
-👉 *Add your demo video link here (YouTube / Drive)*
-Example:
 
 ```
 https://your-demo-link.com
@@ -42,44 +39,231 @@ https://your-demo-link.com
 
 ### Onboarding
 
-![Onboarding 1](screenshots/onBoarding1.png)
-![Onboarding 2](screenshots/onBoarding2.png)
-![Onboarding 3](screenshots/onBoarding3.png)
+<p align="center">
+  <img src="screenshots/1.jpeg" width="200">
+  <img src="screenshots/2.jpeg" width="200">
+  <img src="screenshots/3.jpeg" width="200">
+</p>
 
 ### Main Features
 
-![Home](screenshots/home.png)
-![Cart](screenshots/cart.png)
-![Profile](screenshots/profile.png)
+####Home Page
 
+<p align="center">
+  <img src="screenshots/home.jpeg" width="300">
+</p>
+
+####favorite page
+
+<p>
+  <img src="screenshots/emptyFavorite.jpeg" width="300">
+  <img src="screenshots/favorite.jpeg" width="300">
+</p>
+
+####Cart page
+
+<p align="center">
+  <img src="screenshots/emptyCart.jpeg" width="300">
+  <img src="screenshots/cart.jpeg" width="300">
+</p>
+
+####Profile page
+
+<p align="center">
+  <img src="screenshots/profile.jpeg" width="300">
+  <img src="screenshots/profile Google.jpeg" width="300">
+</p>
 ---
 
 ## 🚀 Features
 
-### 🔐 Authentication
+### 🔐 Authentication Module
 
-* Email & Password Registration/Login
-* Google Sign-In (OAuth)
-* Email Verification
-* OTP Verification
-* Password Reset
+**Location:** `lib/features/auth/`
 
-### 🏠 Core Functionality
+**Functionality:**
 
-* Onboarding Experience
-* Home Screen with featured items
-* Product Catalog
-* Search functionality
-* Shopping Cart management
-* User Profile
-* Push Notifications
-* Bottom Navigation
+- Email & Password Registration/Login
+- Google Sign-In (OAuth)
+- Email Verification
+- OTP Verification
+- Password Reset
+- Secure session management
 
-### 👤 Profile Management
+**Screenshots:**
 
-* Edit Profile
-* Settings & Preferences
-* Payment methods & delivery addresses
+<p align="center">
+  <img src="screenshots/login.jpeg" width="250">
+  <img src="screenshots/Register.jpeg" width="250">
+  <img src="screenshots/failedRegister.jpeg" width="250">
+  <img src="screenshots/otpConfirmEmail.jpeg" width="250">
+  <img src="screenshots/failedOTP.jpeg" width="250">
+  <img src="screenshots/successOTP.jpeg" width="250">
+  <img src="screenshots/forgetPassword.jpeg" width="250">
+  <img src="screenshots/success ForgetPassword.jpeg" width="250">
+  </p>
+
+**Video Demo:**
+
+```
+🎥 [TODO Add Authentication Flow Video]
+```
+
+---
+
+### 🏠 Home Module
+
+**Location:** `lib/features/home/`
+
+**Functionality:**
+
+- Featured products display
+- Product categories browsing
+- Search functionality
+- Product filtering and sorting
+- Real-time product updates
+- Product details view
+
+**Screenshots:**
+
+<p align="center">
+  <img src="screenshots/home.jpeg" width="200">
+  <img src="screenshots/all product.jpeg" width="200">
+  <img src="screenshots/detailsItem.jpeg" width="200">
+</p>
+
+---
+
+### 🛒 Cart Module
+
+**Location:** `lib/features/cart/`
+
+**Functionality:**
+
+- Add items to cart
+- Update item quantities
+- Remove items from cart
+- Cart total calculation
+- Real-time cart updates
+- Cart persistence
+
+**Screenshots:**
+
+<p align="center">
+  <img src="screenshots/emptyCart.jpeg" width="200">
+  <img src="screenshots/detailsItem.jpeg" width="200">
+  <img src="screenshots/cart.jpeg" width="200">
+</p>
+
+---
+
+### ❤️ Favorite Module
+
+**Location:** `lib/features/favorite/`
+
+**Functionality:**
+
+- Add products to favorites
+- View favorite items list
+- Quick access to favorite products
+- Favorite persistence
+
+**Screenshots:**
+
+<p align="center">
+  <img src="screenshots/emptyFavorite.jpeg" width="200">
+  <img src="screenshots/favorite.jpeg" width="200">
+</p>
+---
+
+### 👤 Profile Module
+
+**Location:** `lib/features/profile/`
+
+**Functionality:**
+
+- User profile management
+- Edit personal information
+- Profile picture upload
+- Account settings
+- Address management
+
+**Screenshots:**
+
+<p align="center">
+  <img src="screenshots/profile.jpeg" width="200">
+  <img src="screenshots/editProfile.jpeg" width="200">
+  <img src="screenshots/saveeditprofile.jpeg" width="200">
+  <img src="screenshots/profile Google.jpeg" width="200">
+</p>
+
+---
+
+---
+
+### � Notification Module
+
+**Location:** `lib/features/notification/`
+
+**Functionality:**
+
+- Push notifications
+- In-app notifications
+- Notification history
+- Notification preferences
+- Order status updates
+- Promotional notifications
+
+**Screenshots:**
+
+<p align="center">
+  <img src="screenshots/notification.jpeg" width="250">
+  <img src="screenshots/n.jpeg" width="250">
+  <img src="screenshots/bar.jpeg" width="250">
+</p>
+
+---
+
+### 💳 Payment Module
+
+**Location:** `lib/features/payment/`
+
+**Functionality:**
+
+- Payment method selection
+- Credit/Debit card management
+- Digital wallet integration
+- Payment history
+- Secure payment processing
+
+**Screenshots:**
+
+<p align="center">
+  <img src="screenshots/methodpay.jpeg" width="200">
+  <img src="screenshots/criditcart.jpeg" width="200">
+  <img src="screenshots/order.jpeg" width="200">
+</p>
+
+### 📐 Layout Module
+
+**Location:** `lib/features/layout/`
+
+**Functionality:**
+
+- Bottom navigation bar
+- App shell structure
+- Navigation between modules
+- Responsive layout management
+
+---
+
+## 📥 Download Application
+
+You can download and try the app directly from here:
+
+👉 **[Download FoodDelivery App](https://drive.google.com/file/d/1m3TSG9BmoJuQWTdh9w11Y2evH9_NwX2Q/view?usp=sharing)**
+
+> Make sure to allow installation from unknown sources on your Android device.
 
 ---
 
@@ -87,43 +271,43 @@ https://your-demo-link.com
 
 ### Framework
 
-* Flutter (SDK ^3.7.2)
+- Flutter (SDK ^3.7.2)
 
 ### State Management
 
-* bloc
-* flutter_bloc
+- bloc
+- flutter_bloc
 
 ### Backend (Firebase)
 
-* firebase_core
-* firebase_auth
-* cloud_firestore
-* firebase_messaging
+- firebase_core
+- firebase_auth
+- cloud_firestore
+- firebase_messaging
 
 ### Utilities & UI
 
-* flutter_screenutil
-* cached_network_image
-* font_awesome_flutter
-* cupertino_icons
+- flutter_screenutil
+- cached_network_image
+- font_awesome_flutter
+- cupertino_icons
 
 ### Storage & Data
 
-* shared_preferences
-* path_provider
+- shared_preferences
+- path_provider
 
 ### Architecture Tools
 
-* get_it (Dependency Injection)
-* dartz (Functional Programming)
-* equatable (Value Equality)
+- get_it (Dependency Injection)
+- dartz (Functional Programming)
+- equatable (Value Equality)
 
 ### Dev Tools
 
-* flutter_lints
-* flutter_test
-* flutter_launcher_icons
+- flutter_lints
+- flutter_test
+- flutter_launcher_icons
 
 ---
 
@@ -168,25 +352,24 @@ This project follows **Clean Architecture**, separating concerns into three laye
 
 ### 🔹 Presentation Layer
 
-* UI (Widgets)
-* BLoC (State Management)
+- UI (Widgets)
+- BLoC (State Management)
 
 ### 🔹 Domain Layer
 
-* Entities
-* Use Cases
-* Repository Interfaces
+- Entities
+- Use Cases
+- Repository Interfaces
 
 ### 🔹 Data Layer
 
-* Models
-* Repository Implementations
-* Data Sources (Firebase, Local Storage)
-
+- Models
+- Repository Implementations
+- Data Sources (Firebase, Local Storage)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Presentation Layer                        │
+│                    Presentation Layer                       │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
 │  │   Widgets   │  │   BLoC      │  │   Views/States      │  │
 │  └─────────────┘  └─────────────┘  └─────────────────────┘  │
@@ -202,7 +385,7 @@ This project follows **Clean Architecture**, separating concerns into three laye
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      Data Layer                              │
+│                      Data Layer                             │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
 │  │ Data Models │  │ Repositories│  │   Data Sources      │  │
 │  └─────────────┘  └─────────────┘  └─────────────────────┘  │
@@ -227,9 +410,8 @@ This project follows **Clean Architecture**, separating concerns into three laye
 
 ### Prerequisites
 
-* Flutter SDK ^3.7.2
-* Firebase Project
-* Android Studio / VS Code
+- Flutter SDK ^3.7.2
+- Firebase Project
 
 ---
 
@@ -248,9 +430,8 @@ flutter pub get
 1. Create a Firebase project
 2. Add Android & iOS apps
 3. Download config files:
-
-   * `google-services.json` → android/app/
-   * `GoogleService-Info.plist` → ios/Runner/
+   - `google-services.json` → android/app/
+   - `GoogleService-Info.plist` → ios/Runner/
 
 ---
 
@@ -276,10 +457,10 @@ flutter run
 
 ## 📱 Platform Support
 
-* ✅ Android
-* ✅ iOS
-* ⚠️ Web (limited)
-* ⚠️ Windows / Linux / macOS (limited)
+- ✅ Android
+- ✅ iOS
+- ⚠️ Web (limited)
+- ⚠️ Windows / Linux / macOS (limited)
 
 ---
 
@@ -301,7 +482,6 @@ flutter build apk --release
 flutter build ios --release
 ```
 
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -313,7 +493,6 @@ flutter build ios --release
 
 ## 📬 Contact
 
-* WhatsApp: +20 10 91428881
-* LinkedIn: https://www.linkedin.com/in/mohamed-mohamed-abd-el-fatah-a276ab264/
-* Email: mohammedabdelfatah837@gmail.com
-
+- WhatsApp: +20 10 91428881
+- LinkedIn: https://www.linkedin.com/in/mohamed-mohamed-abd-el-fatah-a276ab264/
+- Email: mohammedabdelfatah837@gmail.com
