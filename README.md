@@ -47,27 +47,27 @@ TODO
 
 ### Main Features
 
-####Home Page
+#### Home Page
 
 <p align="center">
   <img src="screenshots/home.jpeg" width="300">
 </p>
 
-####favorite page
+#### Favorite Page
 
 <p>
   <img src="screenshots/emptyFavorite.jpeg" width="300">
   <img src="screenshots/favorite.jpeg" width="300">
 </p>
 
-####Cart page
+#### Cart page
 
 <p align="center">
   <img src="screenshots/emptyCart.jpeg" width="300">
   <img src="screenshots/cart.jpeg" width="300">
 </p>
 
-####Profile page
+#### Profile page
 
 <p align="center">
   <img src="screenshots/profile.jpeg" width="300">
