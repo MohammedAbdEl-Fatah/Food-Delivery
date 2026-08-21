@@ -29,15 +29,11 @@ It was built to:
 
 ## 🎥 Demo
 
-<div align="center">
-  <video
-    controls
-    width="450"
-    height="450"
-  >
-    <source src="./screenshots/FoodDeliveryVideo.mp4" type="video/mp4">
-  </video>
-</div>
+<p align="center">
+  <a href="https://drive.google.com/file/d/1PtPsIws8-vzYb_l5xpfA2AtJ6RnnIEcS/view">
+    🎥 Watch the Food Delivery App Demo
+  </a>
+</p>
 
 ---
 
