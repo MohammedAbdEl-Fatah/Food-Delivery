@@ -30,7 +30,7 @@ It was built to:
 ## 🎥 Demo
 
 <p align="center">
-  <a href="https://drive.google.com/file/d/1PtPsIws8-vzYb_l5xpfA2AtJ6RnnIEcS/view">
+  <a href="https://drive.google.com/file/d/1w_hpGdI8VMvZDBUWksIxjvPOWAR946bd/view?usp=sharing">
     🎥 Watch the Food Delivery App Demo
   </a>
 </p>
@@ -76,7 +76,6 @@ It was built to:
   <img src="screenshots/profile Google.jpeg" width="300">
 </p>
 
-
 ## 🚀 Features
 
 ### 🔐 Authentication Module
@@ -104,7 +103,6 @@ It was built to:
   <img src="screenshots/forgetPassword.jpeg" width="250">
   <img src="screenshots/success ForgetPassword.jpeg" width="250">
   </p>
-
 
 ### 🏠 Home Module
 
@@ -167,7 +165,7 @@ It was built to:
 
 <p align="center">
   <img src="screenshots/emptyFavorite.jpeg" width="200">
-  <img src="screenshots/favorite.jpeg" width="200">
+  <img src="screenshots/Datafavorite.jpeg" width="200">
 </p>
 
 ---
