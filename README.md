@@ -29,9 +29,15 @@ It was built to:
 
 ## 🎥 Demo
 
-```
-https://your-demo-link.com
-```
+<div align="center">
+  <video
+    controls
+    width="450"
+    height="450"
+  >
+    <source src="./screenshots/FoodDeliveryVideo.mp4" type="video/mp4">
+  </video>
+</div>
 
 ---
 
