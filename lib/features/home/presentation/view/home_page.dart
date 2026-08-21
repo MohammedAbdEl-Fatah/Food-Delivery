@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery/core/colors/color_manager.dart';
@@ -175,7 +177,6 @@ class _HomePageState extends State<HomePage> {
 
         if (state is ProductSuccess) {
           final products = state.products;
-
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: CustomGridViewBuilder(

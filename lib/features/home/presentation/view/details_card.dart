@@ -20,7 +20,6 @@ class DetailsCard extends StatefulWidget {
 }
 
 class _DetailsCardState extends State<DetailsCard> {
-  bool isLove = false;
   @override
   Widget build(BuildContext context) {
     final ProductEntity product =
@@ -42,20 +41,22 @@ class _DetailsCardState extends State<DetailsCard> {
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 12),
-                  child: GestureDetector(
-                    onTap: () {
-                      isLove = !isLove;
-                      isLove
-                          ? context.read<FavoriteCubit>().addFavorite(product)
-                          : context.read<FavoriteCubit>().removeFavorite(
-                            product,
-                          );
-                      setState(() {});
+                  child: BlocSelector<FavoriteCubit, FavoriteState, bool>(
+                    selector:
+                        (state) =>
+                            state.items.any((item) => item.title == product.title),
+                    builder: (context, isLove) {
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<FavoriteCubit>().toggleFavorite(product);
+                        },
+                        child: Icon(
+                          FontAwesomeIcons.solidHeart,
+                          color:
+                              isLove ? ColorManager.error : ColorManager.white,
+                        ),
+                      );
                     },
-                    child: Icon(
-                      FontAwesomeIcons.solidHeart,
-                      color: isLove ? ColorManager.error : ColorManager.white,
-                    ),
                   ),
                 ),
               ],
