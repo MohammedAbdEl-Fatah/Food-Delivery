@@ -105,13 +105,6 @@ It was built to:
   <img src="screenshots/success ForgetPassword.jpeg" width="250">
   </p>
 
-**Video Demo:**
-
-```
-🎥 [TODO Add Authentication Flow Video]
-```
-
-
 
 ### 🏠 Home Module
 
