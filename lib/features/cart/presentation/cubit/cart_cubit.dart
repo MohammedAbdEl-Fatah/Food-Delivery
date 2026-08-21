@@ -9,8 +9,10 @@ class CartCubit extends Cubit<CartState> {
 
   final List<ProductEntity> _items = [];
 
-  /// index in `_items` -> that item's current total (price * quantity),
-  /// reported up from each item's own PriceCubit.
+  /// product.title -> quantity in the cart
+  final Map<String, int> _quantities = {};
+
+  /// index in `_items` -> that item's current total (price * quantity)
   final Map<int, int> _itemTotals = {};
 
   double _discountPercent = 0;
@@ -19,49 +21,66 @@ class CartCubit extends Cubit<CartState> {
 
   List<ProductEntity> get items => List.unmodifiable(_items);
 
-  void addProductToCart(ProductEntity item) {
-    _items.add(item);
-    _itemTotals[_items.length - 1] = item.price.toInt();
+  int quantityOf(String productId) => _quantities[productId] ?? 0;
+
+  void addProductToCart(ProductEntity item, {int quantity = 1}) {
+    final addBy = quantity < 1 ? 1 : quantity;
+    final existingIndex = _items.indexWhere((product) => product.title == item.title);
+
+    if (existingIndex != -1) {
+      final nextQuantity = (_quantities[item.title] ?? 1) + addBy;
+      _quantities[item.title] = nextQuantity;
+      _itemTotals[existingIndex] = item.price.toInt() * nextQuantity;
+    } else {
+      _items.add(item);
+      _quantities[item.title] = addBy;
+      _itemTotals[_items.length - 1] = item.price.toInt() * addBy;
+    }
     _emitCartState();
   }
 
   void removeProductFromCart(ProductEntity item) {
-    final index = _items.indexOf(item);
-    _items.remove(item);
-    if (index != -1) {
-      // Rebuild the totals map so indices stay aligned with `_items`
-      // after a removal shifts everything down by one.
-      final rebuilt = <int, int>{};
-      _itemTotals.forEach((i, total) {
-        if (i < index) {
-          rebuilt[i] = total;
-        } else if (i > index) {
-          rebuilt[i - 1] = total;
-        }
-      });
-      _itemTotals
-        ..clear()
-        ..addAll(rebuilt);
-    }
+    final index = _items.indexWhere((product) => product.title == item.title);
+    if (index == -1) return;
+
+    _items.removeAt(index);
+    _quantities.remove(item.title);
+
+    final rebuilt = <int, int>{};
+    _itemTotals.forEach((i, total) {
+      if (i < index) {
+        rebuilt[i] = total;
+      } else if (i > index) {
+        rebuilt[i - 1] = total;
+      }
+    });
+    _itemTotals
+      ..clear()
+      ..addAll(rebuilt);
+
     _emitCartState();
   }
 
   /// Called by each item's PriceCubit whenever its quantity/total changes,
   /// so the cart-level total always stays in sync.
   void updateItemTotal(int index, int total) {
-    _itemTotals[index] = total;
+    if (index < 0 || index >= _items.length) return;
+
+    final item = _items[index];
+    final unitPrice = item.price.toInt();
+    final quantity = unitPrice == 0 ? 1 : (total / unitPrice).round().clamp(1, 999);
+
+    _quantities[item.title] = quantity;
+    _itemTotals[index] = unitPrice * quantity;
     _emitCartState();
   }
 
-  /// Very simple placeholder promo logic — swap in real validation
-  /// (e.g. an API call) when you have one.
   void applyPromoCode(String code) {
     _discountPercent = code.trim().toUpperCase() == 'SAVE10' ? 0.10 : 0;
     _emitCartState();
   }
 
-  int get _subtotal =>
-      _itemTotals.values.fold(0, (sum, price) => sum + price);
+  int get _subtotal => _itemTotals.values.fold(0, (sum, price) => sum + price);
 
   void _emitCartState() {
     if (_items.isEmpty) {
@@ -72,6 +91,7 @@ class CartCubit extends Cubit<CartState> {
       emit(
         CartIsNotEmpty(
           items: List.unmodifiable(_items),
+          quantities: Map.unmodifiable(_quantities),
           subtotal: subtotal,
           discountAmount: discountAmount,
           deliveryFee: deliveryFee,
@@ -81,8 +101,9 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-void clearCart() {
+  void clearCart() {
     _items.clear();
+    _quantities.clear();
     _itemTotals.clear();
     _discountPercent = 0;
     emit(CartEmpty());

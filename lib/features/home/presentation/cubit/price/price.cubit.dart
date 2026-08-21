@@ -3,8 +3,13 @@ part 'price.status.dart';
 
 class PriceCubit extends Cubit<PriceStatus> {
   final int price;
-  PriceCubit({required this.price})
-    : super(PriceStatus(quantity: 1, totalprice: price));
+  PriceCubit({required this.price, int quantity = 1})
+    : super(
+        PriceStatus(
+          quantity: quantity < 1 ? 1 : quantity,
+          totalprice: price * (quantity < 1 ? 1 : quantity),
+        ),
+      );
 
   void incrementPrice() {
     final newQuantity = state.quantity + 1;

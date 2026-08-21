@@ -36,7 +36,10 @@ class BottonBarDetailCard extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   log("add product to cart from detials page");
-                  context.read<CartCubit>().addProductToCart(product);
+                  context.read<CartCubit>().addProductToCart(
+                    product,
+                    quantity: state.quantity,
+                  );
                 },
                 style: ButtonStyle(
                   elevation: const WidgetStatePropertyAll(0),

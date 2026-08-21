@@ -5,6 +5,7 @@ class CartEmpty extends CartState {}
 class CartSwitchLoading extends CartState {}
 class CartIsNotEmpty extends CartState {
   final List<ProductEntity> items;
+  final Map<String, int> quantities;
   final int subtotal;
   final double discountAmount;
   final double deliveryFee;
@@ -12,6 +13,7 @@ class CartIsNotEmpty extends CartState {
 
   CartIsNotEmpty({
     required this.items,
+    required this.quantities,
     required this.subtotal,
     required this.discountAmount,
     required this.deliveryFee,

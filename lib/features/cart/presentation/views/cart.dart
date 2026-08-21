@@ -26,7 +26,6 @@ class CartPage extends StatelessWidget {
             if (state is CartEmpty) {
               return const CartEmptyView();
             } else if (state is CartIsNotEmpty) {
-              final totalPrice = state.items.fold<int>(0, (sum, item) => sum + item.price.toInt());
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -39,10 +38,14 @@ class CartPage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: state.items.length,
                       itemBuilder: (context, index) {
+                        final product = state.items[index];
+                        final quantity = state.quantities[product.id] ?? 1;
                         return BlocProvider(
+                          key: ValueKey('${product.id}_$quantity'),
                           create:
                               (context) => PriceCubit(
-                                price: state.items[index].price.toInt(),
+                                price: product.price.toInt(),
+                                quantity: quantity,
                               ),
                           child: BlocListener<PriceCubit, PriceStatus>(
                             listener: (context, priceState) {
@@ -51,7 +54,7 @@ class CartPage extends StatelessWidget {
                                 priceState.totalprice,
                               );
                             },
-                            child: CartItemsView(items: [state.items[index]]),
+                            child: CartItemsView(items: [product]),
                           ),
                         );
                       },
@@ -59,7 +62,7 @@ class CartPage extends StatelessWidget {
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.008),
                     const ResultCart(),
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
-                    OrderButton(price: totalPrice.toString()),
+                    OrderButton(price: state.total.toStringAsFixed(0)),
                   ],
                 ),
               );
