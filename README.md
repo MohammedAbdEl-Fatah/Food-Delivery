@@ -57,7 +57,7 @@ It was built to:
 
 #### Favorite Page
 
-<p>
+<p align="center">
   <img src="screenshots/emptyFavorite.jpeg" width="300">
   <img src="screenshots/favorite.jpeg" width="300">
 </p>
