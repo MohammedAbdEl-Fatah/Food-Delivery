@@ -211,9 +211,9 @@ It was built to:
 **Screenshots:**
 
 <p align="center">
+  <img src="screenshots/barN.jpeg" width="250">
   <img src="screenshots/notification.jpeg" width="250">
-  <img src="screenshots/n.jpeg" width="250">
-  <img src="screenshots/bar.jpeg" width="250">
+  <img src="screenshots/DataNatification.jpeg" width="250">
 </p>
 
 ---
